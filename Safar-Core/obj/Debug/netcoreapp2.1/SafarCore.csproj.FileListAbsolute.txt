@@ -1,6 +1,0 @@
-C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Core\bin\Debug\netcoreapp2.1\SafarCore.deps.json
-C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Core\bin\Debug\netcoreapp2.1\SafarCore.dll
-C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Core\obj\Debug\netcoreapp2.1\SafarCore.csprojResolveAssemblyReference.cache
-C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Core\obj\Debug\netcoreapp2.1\SafarCore.csproj.CoreCompileInputs.cache
-C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Core\obj\Debug\netcoreapp2.1\SafarCore.AssemblyInfoInputs.cache
-C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Core\obj\Debug\netcoreapp2.1\SafarCore.AssemblyInfo.cs
