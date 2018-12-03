@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SafarCore.GenFunctions;
@@ -30,52 +32,73 @@ namespace SafarCore.DbClasses
                 try
                 {
                     _database = _client.GetDatabase(dbname);
-                    return FuncResult.Successful;
+                    return new FuncResult(ResultEnum.Successfull);
                 }
                 catch (Exception e)
                 {
                     var logger = new Logger(ObjectId.Empty, "DbConnection", "Connect to db", e.Message);
                     logger.AddLog();
-                    return FuncResult.Unsuccessful;
+                    return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
                 }
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "Connect to client", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
         }
 
 
-        public FuncResult ConnectOpenReg()
+        public FuncResult Connect()
         {
-            return Connect("OpenReg");
+            return Connect("SafarDB");
         }
 
-        public List<T> GetFilteredList<T>(CollectionNames collectionname, List<FieldFilter> filterPairs)
+        public async Task<List<T>> GetFilteredListAsync<T>(CollectionNames collectionname, List<FieldFilter> filterPairs)
         {
             try
             {
-                List<T> result;
+                FilterDefinition<T> filter = new BsonDocument();
 
-                if (filterPairs == null)
+                if (filterPairs != null && filterPairs.Count > 0)
                 {
-                    result = IAsyncCursorSourceExtensions.ToList(_database.GetCollection<T>(Collections.GetCollectionName(collectionname)).AsQueryable());
-                    return result;
+                    filter = FilterBuilder<T>(filterPairs);
                 }
 
-                if (filterPairs.Count == 0)
+                var curser = _database.GetCollection<T>(Collections.GetCollectionName(collectionname))
+                    .FindAsync(filter);
+
+                var result = await curser.Result.MoveNextAsync();
+                return result ? curser.Result.Current.ToList() : null;
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                logger.AddLog();
+                return null;
+            }
+        }
+
+        public async Task<List<T>> GetFilteredListAsync<T>(CollectionNames collectionname, List<FieldFilter> filterPairs
+            , SortFilter sortFilter, int count)
+        {
+            // count = -1 means to return all
+            try
+            {
+                FilterDefinition<T> filter = new BsonDocument();
+
+                if (filterPairs != null && filterPairs.Count > 0)
                 {
-                    result = IAsyncCursorSourceExtensions.ToList(_database.GetCollection<T>(Collections.GetCollectionName(collectionname)).AsQueryable());
-                    return result;
+                    filter = FilterBuilder<T>(filterPairs);
                 }
 
-                var filter = FilterBuilder<T>(filterPairs);
+                var sort = SortBuilder<T>(sortFilter);
+                var collection = _database.GetCollection<T>(Collections.GetCollectionName(collectionname));
+                var curser = collection.FindAsync(filter);
 
-                result = _database.GetCollection<T>(Collections.GetCollectionName(collectionname)).Find(filter).ToList();
-
-                return result;
+                var result = await curser.Result.MoveNextAsync();
+                return result ? curser.Result.Current.ToList() : null;
             }
             catch (Exception e)
             {
@@ -95,13 +118,13 @@ namespace SafarCore.DbClasses
 
                 if (filterPairs == null)
                 {
-                    result = _database.GetCollection<T>(Collections.GetCollectionName(collectionname)).AsQueryable().ToList();
+                    result = IAsyncCursorSourceExtensions.ToList(_database.GetCollection<T>(Collections.GetCollectionName(collectionname)).AsQueryable());
                     return result;
                 }
 
                 if (filterPairs.Count == 0)
                 {
-                    result = _database.GetCollection<T>(Collections.GetCollectionName(collectionname)).AsQueryable().ToList();
+                    result = IAsyncCursorSourceExtensions.ToList(_database.GetCollection<T>(Collections.GetCollectionName(collectionname)).AsQueryable());
                     return result;
                 }
 
@@ -214,7 +237,7 @@ namespace SafarCore.DbClasses
                 if (keyList == null) //Just Add
                 {
                     collection.InsertOneAsync(document);
-                    return FuncResult.Successful;
+                    return new FuncResult(ResultEnum.Successfull);
                 }
                 else //Check for existency
                 {
@@ -240,13 +263,57 @@ namespace SafarCore.DbClasses
                         collection.InsertOneAsync(document);
                     }
                 }
-                return FuncResult.Successful;
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdate", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+
+        }
+
+        public async Task<FuncResult> AddorUpdateAsync(BsonDocument document, IMongoCollection<BsonDocument> collection,
+            List<string> keyList = null)
+        {
+            try
+            {
+                if (keyList == null) //Just Add
+                {
+                    await collection.InsertOneAsync(document);
+                }
+                else //Check for existency
+                {
+                    var builder = Builders<BsonDocument>.Filter;
+                    var filter = builder.Eq(keyList[0], document[keyList[0]]);
+
+                    for (var i = 1; i < keyList.Count; i++)
+                    {
+                        filter &= builder.Eq(keyList[i], document[keyList[i]]);
+                    }
+
+                    var c = collection.Find(filter).ToList();
+
+                    if (c.Count > 0)
+                    {
+                        //Update
+                        await collection.ReplaceOneAsync(filter, document);
+
+                    }
+                    else
+                    {
+                        //Add new
+                        await collection.InsertOneAsync(document);
+                    }
+                }
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdate", e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
 
         }
@@ -260,7 +327,7 @@ namespace SafarCore.DbClasses
                 if (keyList == null) //Just Add
                 {
                     collection.InsertManyAsync(documents);
-                    return FuncResult.Successful;
+                    return new FuncResult(ResultEnum.Successfull);
                 }
 
                 foreach (var document in documents)
@@ -287,13 +354,58 @@ namespace SafarCore.DbClasses
                         collection.InsertOneAsync(document);
                     }
                 }
-                return FuncResult.Successful;
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdateMany", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+
+        }
+
+        public async Task<FuncResult> AddorUpdateManyAsync(List<BsonDocument> documents, IMongoCollection<BsonDocument> collection,
+            List<string> keyList = null)
+        {
+            try
+            {
+                if (keyList == null) //Just Add
+                {
+                    await collection.InsertManyAsync(documents);
+                }
+
+                foreach (var document in documents)
+                {
+                    var builder = Builders<BsonDocument>.Filter;
+                    var filter = builder.Eq(keyList[0], document[keyList[0]]);
+
+                    for (var i = 1; i < keyList.Count; i++)
+                    {
+                        filter &= builder.Eq(keyList[i], document[keyList[i]]);
+                    }
+
+                    var c = collection.Find(filter).ToList();
+
+                    if (c.Count > 0)
+                    {
+                        //Update
+                        await collection.ReplaceOneAsync(filter, document);
+
+                    }
+                    else
+                    {
+                        //Add new
+                        await collection.InsertOneAsync(document);
+                    }
+                }
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdateMany", e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
 
         }
@@ -310,19 +422,43 @@ namespace SafarCore.DbClasses
                 var delres = collection.DeleteMany(filter);
                 passed += delres.DeletedCount + " item removed | ";
 
-                collection.InsertManyAsync(documents);
+                collection.InsertMany(documents);
                 passed += documents.Count + " items added | ";
 
-                //var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorReplaceMany", passed);
-                //logger.AddLog();
 
-                return FuncResult.Successful;
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorReplaceMany", passed + e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+
+        }
+
+        public async Task<FuncResult> AddorReplaceManyAsync(List<BsonDocument> documents, IMongoCollection<BsonDocument> collection, ObjectId userId)
+        {
+            var passed = "";
+
+            try
+            {
+                var builder = Builders<BsonDocument>.Filter;
+                var filter = builder.Eq("UserId", userId);
+
+                var delres = collection.DeleteMany(filter);
+                passed += delres.DeletedCount + " item removed | ";
+
+                await collection.InsertManyAsync(documents);
+                passed += documents.Count + " items added | ";
+
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorReplaceMany", passed + e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
 
         }
@@ -336,7 +472,7 @@ namespace SafarCore.DbClasses
 
 
                 var dbConnection = new DbConnection();
-                dbConnection.ConnectOpenReg();
+                dbConnection.Connect();
                 var collection = dbConnection.GetMongoCollection(collectionName);
 
                 UpdateDefinition<BsonDocument> updated = new BsonDocument();
@@ -371,13 +507,65 @@ namespace SafarCore.DbClasses
                 collection.UpdateMany(filtered, updated);
 
 
-                return FuncResult.Successful;
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "UpdateField", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+        }
+
+        public async Task<FuncResult> UpdateFieldAsync(CollectionNames collectionName, List<FieldFilter> filterPairs,
+            List<FieldUpdate> fieldsPairs)
+        {
+            try
+            {
+                var filtered = FilterBuilder<BsonDocument>(filterPairs);
+
+
+                var dbConnection = new DbConnection();
+                dbConnection.Connect();
+                var collection = dbConnection.GetMongoCollection(collectionName);
+
+                UpdateDefinition<BsonDocument> updated = new BsonDocument();
+                //var updatebuilder = Builders<BsonDocument>.Update;
+
+                foreach (var t in fieldsPairs)
+                {
+                    switch (t.FieldType)
+                    {
+                        case FieldType.String:
+                            updated.Set(t.FieldName, (string)t.FieldValue);
+                            break;
+                        case FieldType.Double:
+                            updated.Set(t.FieldName, (double)t.FieldValue);
+                            break;
+                        case FieldType.Bool:
+                            updated.Set(t.FieldName, (bool)t.FieldValue);
+                            break;
+                        case FieldType.Date:
+                            updated.Set(t.FieldName, (DateTime)t.FieldValue);
+                            break;
+                        case FieldType.ObjectId:
+                            updated.Set(t.FieldName, (ObjectId)t.FieldValue);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                }
+                
+                await collection.UpdateManyAsync(filtered, updated);
+
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "UpdateField", e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
         }
 
@@ -406,29 +594,97 @@ namespace SafarCore.DbClasses
                     }
                 }
 
-                collection.InsertManyAsync(newlist);
-                return FuncResult.Successful;
+                collection.InsertMany(newlist);
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "InsertMany", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
         }
-        
+
+        public async Task<FuncResult> InsertManyAsync(List<BsonDocument> documents, IMongoCollection<BsonDocument> collection,
+            string fieldName = null, bool update = false)
+        {
+            try
+            {
+                var newlist = new List<BsonDocument>();
+                if (fieldName == null)
+                {
+                    newlist = documents;
+                }
+                else
+                {
+                    //find those documents which there is no similar of them in DB
+                    foreach (var document in documents)
+                    {
+                        var builder = Builders<BsonDocument>.Filter;
+                        var filter = builder.Eq(fieldName, document[fieldName]);
+
+                        if (collection.CountDocuments(filter) == 0)
+                        {
+                            newlist.Add(document);
+                        }
+                    }
+                }
+
+                await collection.InsertManyAsync(newlist);
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "InsertMany", e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+        }
+
         public FuncResult Delete(BsonDocument document, IMongoCollection<BsonDocument> collection)
         {
             try
             {
-                collection.DeleteOneAsync(document);
-                return FuncResult.Successful;
+                collection.DeleteOne(document);
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "Delete", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+        }
+
+        public async Task<FuncResult> DeleteAsync(BsonDocument document, IMongoCollection<BsonDocument> collection)
+        {
+            try
+            {
+                await collection.DeleteOneAsync(document);
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "Delete", e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
+            }
+        }
+
+        public async Task<FuncResult> DeleteManyAsync(CollectionNames collectionName, List<FieldFilter> fieldFilters)
+        {
+            try
+            {
+                var collection = GetMongoCollection(collectionName);
+                var filter = FilterBuilder<BsonDocument>(fieldFilters);
+                await collection.DeleteManyAsync(filter);
+                return new FuncResult(ResultEnum.Successfull);
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "Delete", e.Message);
+                logger.AddLog();
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
         }
 
@@ -659,25 +915,25 @@ namespace SafarCore.DbClasses
         }
 
 
-        public static FuncResult FastAddorUpdate(object odocument, CollectionNames collectionName,
+        public static async Task<FuncResult> FastAddorUpdate(object odocument, CollectionNames collectionName,
             List<string> keyList = null)
         {
             try
             {
                 var dbConnection = new DbConnection();
-                dbConnection.ConnectOpenReg();
+                dbConnection.Connect();
 
                 var collection = dbConnection.GetMongoCollection(collectionName);
                 var document = odocument.ToBsonDocument();
 
-                dbConnection.AddorUpdate(document, collection, keyList);
-                return FuncResult.Successful;
+                await dbConnection.AddorUpdateAsync(document, collection, keyList);
+                return new FuncResult(ResultEnum.Successfull);
             }
             catch (Exception e)
             {
                 var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdate", e.Message);
                 logger.AddLog();
-                return FuncResult.Unsuccessful;
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
         }
     }

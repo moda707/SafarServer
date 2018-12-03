@@ -10,3 +10,9 @@ C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safa
 C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\SafarSDK\bin\Debug\netstandard2.0\SafarSDK.pdb
 C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.dll
 C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.csprojAssemblyReference.cache
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.csproj.CoreCompileInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.AssemblyInfoInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.AssemblyInfo.cs
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.dll
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.pdb

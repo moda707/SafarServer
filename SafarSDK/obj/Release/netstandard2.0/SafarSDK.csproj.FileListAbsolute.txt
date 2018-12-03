@@ -1,0 +1,4 @@
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Release\netstandard2.0\SafarSDK.csprojAssemblyReference.cache
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Release\netstandard2.0\SafarSDK.csproj.CoreCompileInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Release\netstandard2.0\SafarSDK.AssemblyInfoInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Release\netstandard2.0\SafarSDK.AssemblyInfo.cs

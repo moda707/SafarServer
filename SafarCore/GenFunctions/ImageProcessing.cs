@@ -49,7 +49,7 @@ namespace SafarCore.GenFunctions
             //    }
             //}
 
-            return FuncResult.Successful;
+            return new FuncResult(ResultEnum.Successfull);
         }
 
 

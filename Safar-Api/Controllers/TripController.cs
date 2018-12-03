@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SafarCore.TripClasses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,15 +21,16 @@ namespace SafarApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Trip> Get(string tripId)
         {
-            return "value";
+            return await Trip.GetTripById(tripId);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async void Post([FromBody]TripTrans value)
         {
+            await Trip.AddUpdateTrip(value);
         }
 
         // PUT api/<controller>/5

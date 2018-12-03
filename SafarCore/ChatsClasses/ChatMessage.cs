@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -38,7 +39,7 @@ namespace SafarCore.ChatsClasses
                 TripId = chatMessageInDb.TripId,
                 MessageText = chatMessageInDb.MessageText,
                 FromId = chatMessageInDb.FromId,
-                FromName = Users.getUserById(chatMessageInDb.FromId).DisplayName,
+                FromName = Users.getUserById(chatMessageInDb.FromId.ToString()).Result.DisplayName,
                 MessageDate = chatMessageInDb.MessageDate,
                 UriLink = chatMessageInDb.UriLink,
                 MessageType = (ChatMessageType)chatMessageInDb.MessageType,
@@ -75,34 +76,53 @@ namespace SafarCore.ChatsClasses
 
             //add it to db
 
-            var addres = DbConnection.FastAddorUpdate(chatMessageInDb, CollectionNames.Chats);
-            if (addres == FuncResult.Unsuccessful) return FuncResult.Unsuccessful;
+            var addres = await DbConnection.FastAddorUpdate(chatMessageInDb, CollectionNames.Chats);
+            if (addres.Result == ResultEnum.Successfull)
+            {
+                //call a chanel in Pusher
+                var pusher = new PusherFunc();
+                var t = await pusher.Push(chatMessageTrans.TripId, "NewChatMessage",
+                    new ChatMessageShort(chatMessageTrans.FromId, chatMessageTrans.MessageText));
+                if (t.StatusCode == HttpStatusCode.Accepted)
+                {
+                    return new FuncResult(ResultEnum.Successfull);
+                }
+                else
+                {
+                    return new FuncResult(ResultEnum.Unsuccessfull, "Error in Pusher.");
+                }
+                
+            }
+            else
+            {
+                return new FuncResult(ResultEnum.Unsuccessfull, "Error in adding the message.");
+            }
 
-            //call a chanel in Pusher
-            var pusher = new PusherFunc();
-            var t = await pusher.Push(chatMessageTrans.TripId, "NewChatMessage",
-                new ChatMessageShort(chatMessageTrans.FromId, chatMessageTrans.MessageText));
-
-
-            return FuncResult.Successful;
+            
         }
 
-        public static FuncResult DeleteMessage(string messageId)
+        public static async Task<FuncResult> DeleteMessage(string messageId)
         {
-            //Delete message with messageId
-
-            return FuncResult.Successful;
+            var omessageId = ObjectId.Parse(messageId);
+            var dbConnection = new DbConnection();
+            dbConnection.Connect();
+            var t = await dbConnection.DeleteManyAsync(CollectionNames.Chats,
+                new List<FieldFilter>()
+                {
+                    new FieldFilter("MessageId", omessageId, FieldType.ObjectId, CompareType.Equal)
+                });
+            return t;
         }
 
         #endregion
 
         #region Get Messages
 
-        public static List<ChatMessage> GetChatMessages(string tripId, int startIndex = 0, int count = 20)
+        public static async Task<List<ChatMessage>> GetChatMessages(string tripId, int startIndex = 0, int count = 20)
         {
             var otripId = ObjectId.Parse(tripId);
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
@@ -110,7 +130,7 @@ namespace SafarCore.ChatsClasses
             };
 
             var sort = new SortFilter("MessageDate", SortType.Descending);
-            var chatList = dbConnection.GetFilteredList<ChatMessage>(CollectionNames.Chats, filter, sort, count);
+            var chatList = await dbConnection.GetFilteredListAsync<ChatMessage>(CollectionNames.Chats, filter, sort, count);
             
             return chatList;
         }

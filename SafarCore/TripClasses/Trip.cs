@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using SafarCore.DbClasses;
 using SafarCore.GenFunctions;
@@ -28,7 +29,7 @@ namespace SafarCore.TripClasses
 
         #region Converter
 
-        public static Trip ConvertTripInDbtoTrip(TripInDb tripInDb)
+        public static async Task<Trip> ConvertTripInDbtoTrip(TripInDb tripInDb)
         {
             return new Trip()
             {
@@ -41,7 +42,7 @@ namespace SafarCore.TripClasses
                 LeaderId = tripInDb.LeaderId,
                 Capacity = tripInDb.Capacity,
                 Fellows = Fellow.GetFellowsByTripId(tripInDb.TripId),
-                Destinations = Destination.GetDestinationsByTripId(tripInDb.TripId)
+                Destinations = await Destination.GetDestinationsByTripId(tripInDb.TripId.ToString())
             };
         }
 
@@ -65,32 +66,32 @@ namespace SafarCore.TripClasses
 
         #region Add Update Delete Functions
 
-        public static FuncResult AddUpdateTrip(TripTrans tripTrans)
+        public static async Task<FuncResult> AddUpdateTrip(TripTrans tripTrans)
         {
             var tripInDb = ConvertTripTranstoTripInDb(tripTrans);
-            return DbConnection.FastAddorUpdate(tripInDb, CollectionNames.Trip, new List<string>() {"TripId"});
+            return await DbConnection.FastAddorUpdate(tripInDb, CollectionNames.Trip, new List<string>() {"TripId"});
         }
 
         #endregion
 
         #region Get Trips
 
-        public static Trip GetTripById(string tripId)
+        public static async Task<Trip> GetTripById(string tripId)
         {
             var otripId = ObjectId.Parse(tripId);
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
                 new FieldFilter("TripId", otripId, FieldType.ObjectId, CompareType.Equal)
             };
-            var l = dbConnection.GetFilteredList<TripInDb>(CollectionNames.Trip, filter);
-            var trip = ConvertTripInDbtoTrip(l[0]);
+            var l = await dbConnection.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
+            var trip = await ConvertTripInDbtoTrip(l[0]);
             return trip;
         }
 
-        public static List<Trip> GetTripsByUserId(string userId)
+        public static async Task<List<Trip>> GetTripsByUserId(string userId)
         {
             var ouserId = ObjectId.Parse(userId);
 
@@ -102,10 +103,17 @@ namespace SafarCore.TripClasses
             };
 
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
-            return dbConnection.GetFilteredList<TripInDb>(CollectionNames.Trip, filter)
-                .Select(ConvertTripInDbtoTrip).ToList();
+            var tripsInDbList = await dbConnection.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
+            var tripsList = new List<Trip>();
+            foreach (var tripInDb in tripsInDbList)
+            {
+                var t = await ConvertTripInDbtoTrip(tripInDb);
+                tripsList.Add(t);
+            }
+
+            return tripsList;
         }
 
         #endregion

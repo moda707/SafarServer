@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
@@ -24,18 +25,28 @@ namespace SafarCore.TripClasses
 
         #region Add Update Delete Functions
 
-        public static FuncResult AddUpdateDestination(Destination destination)
+        public static async Task<FuncResult> AddUpdateDestination(Destination destination)
         {
-            return DbConnection.FastAddorUpdate(destination, CollectionNames.Destinations,
+            return await DbConnection.FastAddorUpdate(destination, CollectionNames.Destinations,
                 new List<string>() {"DestinationId"});
         }
 
         #endregion
 
         #region Get Destinations
-        public static List<Destination> GetDestinationsByTripId(ObjectId tripId)
+        public static async Task<List<Destination>> GetDestinationsByTripId(string tripId)
         {
-            return new List<Destination>();
+            var otripId = ObjectId.Parse(tripId);
+
+            var dbConnection = new DbConnection();
+            dbConnection.Connect();
+            var filter = new List<FieldFilter>()
+            {
+                new FieldFilter("TripId", otripId, FieldType.ObjectId, CompareType.Equal)
+            };
+            var r = await dbConnection.GetFilteredListAsync<Destination>(CollectionNames.Destinations, filter);
+            
+            return r;
         }
 
 

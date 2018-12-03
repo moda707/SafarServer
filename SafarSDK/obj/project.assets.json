@@ -262,11 +262,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mohda\\Google Drive\\My Projects\\Professional Works\\Safar\\Safar-Core\\SafarSDK\\SafarSDK.csproj",
+      "projectUniqueName": "C:\\Users\\mohda\\source\\repos\\SafarCore\\SafarSDK\\SafarSDK.csproj",
       "projectName": "SafarSDK",
-      "projectPath": "C:\\Users\\mohda\\Google Drive\\My Projects\\Professional Works\\Safar\\Safar-Core\\SafarSDK\\SafarSDK.csproj",
+      "projectPath": "C:\\Users\\mohda\\source\\repos\\SafarCore\\SafarSDK\\SafarSDK.csproj",
       "packagesPath": "C:\\Users\\mohda\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mohda\\Google Drive\\My Projects\\Professional Works\\Safar\\Safar-Core\\SafarSDK\\obj\\",
+      "outputPath": "C:\\Users\\mohda\\source\\repos\\SafarCore\\SafarSDK\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

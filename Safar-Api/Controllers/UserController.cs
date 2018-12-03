@@ -16,20 +16,27 @@ namespace SafarApi.Controllers
         [HttpGet]
         public void Get()
         {
-            var t = Users.AddUser(new Users());
+            
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Users> Get(string id)
         {
-            return "value";
+            return await Users.getUserById(id);
+        }
+
+        [HttpGet("{email}/{password}")]
+        public async Task<Users> Get(string email, string password)
+        {
+            return await Users.getUserByEmailPassword(email, password);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async void Post([FromBody]UsersTrans value)
         {
+            var t = await Users.AddUser(value);
         }
 
         // PUT api/<controller>/5
