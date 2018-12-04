@@ -16,3 +16,9 @@ C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK
 C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.AssemblyInfo.cs
 C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.dll
 C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\bin\Debug\netstandard2.0\SafarSDK.deps.json
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\bin\Debug\netstandard2.0\SafarSDK.dll
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\bin\Debug\netstandard2.0\SafarSDK.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\bin\Debug\netstandard2.0\SafarCore.dll
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\bin\Debug\netstandard2.0\SafarCore.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarSDK\obj\Debug\netstandard2.0\SafarSDK.csproj.CopyComplete

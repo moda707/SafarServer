@@ -28,7 +28,7 @@ namespace SafarCore.UserClasses
             var toFriendship = new FriendShip(fromUserId, UserClasses.FriendShipStatus.RequestReceived);
 
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             //add fromFriendship to fromUser
             var filter = new List<FieldFilter>()
@@ -84,13 +84,13 @@ namespace SafarCore.UserClasses
                 dbConnection.AddorUpdate(f[0].ToBsonDocument(), col, new List<string>() { "UserId" });
             }
 
-            return FuncResult.Successful;
+            return new FuncResult(ResultEnum.Successfull);
         }
 
         public static FuncResult AcceptRequest(ObjectId currentUserId, ObjectId senderUserId)
         {
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             //update currentUser
             var filter = new List<FieldFilter>()
@@ -115,13 +115,13 @@ namespace SafarCore.UserClasses
             
             dbConnection.AddorUpdate(user.ToBsonDocument(), col, new List<string>() { "UserId" });
 
-            return FuncResult.Successful;
+            return new FuncResult(ResultEnum.Successfull);
         }
 
         public static FuncResult CancelorRejectRequest(ObjectId fromUserId, ObjectId toUserId)
         {
 
-            return FuncResult.Successful;
+            return new FuncResult(ResultEnum.Successfull);
         }
     }
 

@@ -186,6 +186,31 @@ namespace SafarCore.DbClasses
             }
         }
 
+        public List<T> GetFilteredList<T>(CollectionNames collectionname, List<FieldFilter> filterPairs)
+        {
+            try
+            {
+                FilterDefinition<T> filter = new BsonDocument();
+
+                if (filterPairs != null && filterPairs.Count > 0)
+                {
+                    filter = FilterBuilder<T>(filterPairs);
+                }
+
+                var result = _database.GetCollection<T>(Collections.GetCollectionName(collectionname))
+                    .Find(filter).ToList();
+
+                
+                return result;
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                logger.AddLog();
+                return null;
+            }
+        }
+
         public List<T> GetFilteredList<T>(string collectionname, List<FieldFilter> filterPairs)
         {
             try

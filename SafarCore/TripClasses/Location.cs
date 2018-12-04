@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
@@ -32,15 +33,15 @@ namespace SafarCore.TripClasses
             GeoPoint = geoPoint;
         }
 
-        public static FuncResult AddUpdateLocation(Location location)
+        public static async Task<FuncResult> AddUpdateLocation(Location location)
         {
-            return DbConnection.FastAddorUpdate(location, CollectionNames.Locations, new List<string>() {"id"});
+            return await DbConnection.FastAddorUpdate(location, CollectionNames.Locations, new List<string>() {"id"});
         }
 
         public static Location GetLastLocation(ObjectId userId)
         {
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
@@ -54,7 +55,7 @@ namespace SafarCore.TripClasses
         public static List<Location> GetLastUserLocationInTrip(ObjectId tripId, ObjectId userId, int count)
         {
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
@@ -70,7 +71,7 @@ namespace SafarCore.TripClasses
         public static List<Location> GetAllUsersLocationInTrip(ObjectId tripId, int count)
         {
             var dbConnection = new DbConnection();
-            dbConnection.ConnectOpenReg();
+            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SafarCore;
 using SafarCore.ChatsClasses;
 using SafarCore.GenFunctions;
 
@@ -31,9 +32,9 @@ namespace SafarApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{tripId}/{startIndex}/{count}")]
-        public List<ChatMessage> Get(string tripId, int startIndex, int count)
+        public async Task<List<ChatMessage>> Get(string tripId, int startIndex, int count)
         {
-            return ChatMessage.GetChatMessages(tripId, startIndex, count);
+            return await ChatMessage.GetChatMessages(tripId, startIndex, count);
         }
 
         // POST api/<controller>
@@ -48,7 +49,7 @@ namespace SafarApi.Controllers
         {
             //Add message
             var t = await ChatMessage.AddUpdateMessage(value);
-            if (t == FuncResult.Successful)
+            if (t.Result == ResultEnum.Successfull)
             {
                 //Add Image
                 var uploads = Path.Combine(_environment.WebRootPath, "TripsContent/" + value.TripId + "/Images/Original");

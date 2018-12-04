@@ -13,3 +13,6 @@ C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard2.0\SafarCo
 C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard2.0\SafarCore.AssemblyInfo.cs
 C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard2.0\SafarCore.dll
 C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard2.0\SafarCore.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netstandard2.0\SafarCore.deps.json
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netstandard2.0\SafarCore.dll
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netstandard2.0\SafarCore.pdb
