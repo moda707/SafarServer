@@ -39,7 +39,7 @@ namespace SafarCore.ChatsClasses
                 TripId = chatMessageInDb.TripId,
                 MessageText = chatMessageInDb.MessageText,
                 FromId = chatMessageInDb.FromId,
-                FromName = Users.getUserById(chatMessageInDb.FromId.ToString()).Result.DisplayName,
+                FromName = Users.getUserById(chatMessageInDb.FromId.ToString()).DisplayName,
                 MessageDate = chatMessageInDb.MessageDate,
                 UriLink = chatMessageInDb.UriLink,
                 MessageType = (ChatMessageType)chatMessageInDb.MessageType,
@@ -80,17 +80,17 @@ namespace SafarCore.ChatsClasses
             if (addres.Result == ResultEnum.Successfull)
             {
                 //call a chanel in Pusher
-                var pusher = new PusherFunc();
-                var t = await pusher.Push(chatMessageTrans.TripId, "NewChatMessage",
-                    new ChatMessageShort(chatMessageTrans.FromId, chatMessageTrans.MessageText));
-                if (t.StatusCode == HttpStatusCode.Accepted)
-                {
-                    return new FuncResult(ResultEnum.Successfull);
-                }
-                else
-                {
+                //var pusher = new PusherFunc();
+                //var t = await pusher.Push(chatMessageTrans.TripId, "NewChatMessage",
+                //    new ChatMessageShort(chatMessageTrans.FromId, chatMessageTrans.MessageText));
+                //if (t.StatusCode == HttpStatusCode.Accepted)
+                //{
+                //    return new FuncResult(ResultEnum.Successfull);
+                //}
+                //else
+                //{
                     return new FuncResult(ResultEnum.Unsuccessfull, "Error in Pusher.");
-                }
+                //}
                 
             }
             else

@@ -32,7 +32,9 @@ namespace SafarSDK
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = await client.PostAsJsonAsync("api/Trip", trip);
+            var json = JsonConvert.SerializeObject(trip);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("api/Trip", httpContent);
 
             return response.IsSuccessStatusCode ?
                 new FuncResult(ResultEnum.Successfull) :

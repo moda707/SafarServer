@@ -17,9 +17,9 @@ namespace SafarCore.DbClasses
             switch (collectionNames)
             {
                 case CollectionNames.User:
-                    return "User";
+                    return "Users";
                 case CollectionNames.Trip:
-                    return "Trip";
+                    return "Trips";
                 case CollectionNames.Chats:
                     return "Chats";
                 case CollectionNames.Timelines:

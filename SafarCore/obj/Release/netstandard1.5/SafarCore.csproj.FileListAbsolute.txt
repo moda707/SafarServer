@@ -1,0 +1,9 @@
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Release\netstandard1.5\SafarCore.deps.json
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Release\netstandard1.5\SafarCore.dll
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Release\netstandard1.5\SafarCore.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Release\netstandard1.5\SafarCore.csprojAssemblyReference.cache
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Release\netstandard1.5\SafarCore.csproj.CoreCompileInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Release\netstandard1.5\SafarCore.AssemblyInfoInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Release\netstandard1.5\SafarCore.AssemblyInfo.cs
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Release\netstandard1.5\SafarCore.dll
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Release\netstandard1.5\SafarCore.pdb

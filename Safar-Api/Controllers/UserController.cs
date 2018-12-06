@@ -21,15 +21,15 @@ namespace SafarApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public async Task<Users> Get(string id)
+        public Users Get(string id)
         {
-            return await Users.getUserById(id);
+            return Users.getUserById(id);
         }
 
         [HttpGet("{email}/{password}")]
         public async Task<Users> Get(string email, string password)
         {
-            return await Users.getUserByEmailPassword(email, password);
+            return (await Users.getUserByEmailPassword(email, password))[0];
         }
 
         // POST api/<controller>

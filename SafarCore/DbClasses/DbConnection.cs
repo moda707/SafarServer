@@ -55,7 +55,7 @@ namespace SafarCore.DbClasses
             return Connect("SafarDB");
         }
 
-        public async Task<List<T>> GetFilteredListAsync<T>(CollectionNames collectionname, List<FieldFilter> filterPairs)
+        public Task<List<T>> GetFilteredListAsync<T>(CollectionNames collectionname, List<FieldFilter> filterPairs)
         {
             try
             {
@@ -67,10 +67,9 @@ namespace SafarCore.DbClasses
                 }
 
                 var curser = _database.GetCollection<T>(Collections.GetCollectionName(collectionname))
-                    .FindAsync(filter);
-
-                var result = await curser.Result.MoveNextAsync();
-                return result ? curser.Result.Current.ToList() : null;
+                    .Find(filter).ToListAsync();
+                
+                return curser;
             }
             catch (Exception e)
             {

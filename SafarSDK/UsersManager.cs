@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SafarCore.ChatsClasses;
 using SafarCore.UserClasses;
 
 namespace SafarSDK
@@ -20,7 +18,10 @@ namespace SafarSDK
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response = await client.PostAsJsonAsync("api/User", userT);
+            var json = JsonConvert.SerializeObject(userT);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("api/User", httpContent);
 
             return response.IsSuccessStatusCode ?
                 new FuncResult(ResultEnum.Successfull) :
@@ -46,7 +47,8 @@ namespace SafarSDK
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
             var response = await client.GetStringAsync($"api/User/{email}/{password}");
-            return JsonConvert.DeserializeObject<Users>(response);
+            var userTrans = JsonConvert.DeserializeObject<UsersTrans>(response);
+            return userTrans.GetUsersObject();
         }
     }
 }

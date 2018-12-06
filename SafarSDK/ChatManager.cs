@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SafarCore.ChatsClasses;
@@ -18,8 +19,10 @@ namespace SafarSDK
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-            
-            var response = await client.PostAsJsonAsync("Chat", message);
+
+            var json = JsonConvert.SerializeObject(message);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("Chat", httpContent);
             
             return response.IsSuccessStatusCode ? 
                 new FuncResult(ResultEnum.Successfull): 

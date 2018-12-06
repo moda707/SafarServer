@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
+using SafarCore.DbClasses;
 using SafarCore.TripClasses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,9 +16,14 @@ namespace SafarApi.Controllers
     {
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            var dbConnection = new DbConnection();
+            dbConnection.Connect();
+            var col = dbConnection.GetMongoCollection(CollectionNames.User);
+            var data = col.AsQueryable().ToList();
+
+            return "It is running";
         }
 
         // GET api/<controller>/5

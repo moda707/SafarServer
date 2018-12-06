@@ -17,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SafarCore">
-      <HintPath>..\SafarCore\bin\Debug\netstandard2.0\SafarCore.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\SafarCore\SafarCore.csproj" />
   </ItemGroup>
 
 </Project>

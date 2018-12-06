@@ -8,13 +8,17 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package Description</description>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group targetFramework=".NETStandard1.5">
+        <dependency id="MongoDB.Bson" version="2.7.2" exclude="Build,Analyzers" />
         <dependency id="MongoDB.Driver" version="2.7.2" exclude="Build,Analyzers" />
-        <dependency id="PusherServer" version="4.1.0" exclude="Build,Analyzers" />
+        <dependency id="MongoDB.Driver.Core" version="2.7.2" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="System.ComponentModel.TypeConverter" version="4.3.0" exclude="Build,Analyzers" />
+        <dependency id="System.Linq.Queryable" version="4.3.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Release\netstandard2.0\SafarCore.dll" target="lib\netstandard2.0\SafarCore.dll" />
+    <file src="C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Release\netstandard1.5\SafarCore.dll" target="lib\netstandard1.5\SafarCore.dll" />
   </files>
 </package>

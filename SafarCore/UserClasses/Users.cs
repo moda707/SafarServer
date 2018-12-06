@@ -31,7 +31,7 @@ namespace SafarCore.UserClasses
             return await DbConnection.FastAddorUpdate(user, CollectionNames.User, new List<string>() {"UserId"});
         }
 
-        public static async Task<Users> getUserById(string userId)
+        public static Users getUserById(string userId)
         {
             var ouserId = ObjectId.Parse(userId);
             var dbConnection = new DbConnection();
@@ -41,12 +41,12 @@ namespace SafarCore.UserClasses
                 new FieldFilter("UserId", ouserId, FieldType.ObjectId, CompareType.Equal)
             };
 
-            var user = await dbConnection.GetFilteredListAsync<Users>(CollectionNames.User, filter);
+            var user = dbConnection.GetFilteredList<Users>(CollectionNames.User, filter);
 
             return user[0];
         }
 
-        public static async Task<Users> getUserByEmailPassword(string email, string password)
+        public static Task<List<Users>> getUserByEmailPassword(string email, string password)
         {
             var dbConnection = new DbConnection();
             dbConnection.Connect();
@@ -56,9 +56,9 @@ namespace SafarCore.UserClasses
                 new FieldFilter("Password", password, FieldType.String, CompareType.Equal)
             };
 
-            var user = await dbConnection.GetFilteredListAsync<Users>(CollectionNames.User, filter);
+            var user = dbConnection.GetFilteredListAsync<Users>(CollectionNames.User, filter);
 
-            return user[0];
+            return user;
         }
     }
 
