@@ -7,32 +7,12 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
 using SafarCore.GenFunctions;
+using SafarObjects.TripClasses;
 
 namespace SafarCore.TripClasses
 {
-    public class Location
+    public class LocationFunc : Location
     {
-        [BsonId]
-        public ObjectId id { get; set; }
-        public ObjectId UserId { get; set; }
-        public ObjectId TripId { get; set; }
-        public DateTime LocationTime { get; set; }
-        public GeoPoint GeoPoint { get; set; }
-
-        public Location()
-        {
-            
-        }
-
-        public Location(ObjectId userId, ObjectId tripId, GeoPoint geoPoint)
-        {
-            id = ObjectId.GenerateNewId();
-            UserId = userId;
-            TripId = tripId;
-            LocationTime = DateTime.Now;
-            GeoPoint = geoPoint;
-        }
-
         public static async Task<FuncResult> AddUpdateLocation(Location location)
         {
             return await DbConnection.FastAddorUpdate(location, CollectionNames.Locations, new List<string>() {"id"});

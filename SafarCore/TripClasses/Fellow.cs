@@ -5,20 +5,12 @@ using System.Text;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
+using SafarObjects.TripClasses;
 
 namespace SafarCore.TripClasses
 {
-    public class Fellow
+    public class FellowFunc : Fellow
     {
-        public ObjectId TripId { get; set; }
-        public ObjectId UserId { get; set; }
-        public FellowType FellowType { get; set; }
-        public FellowStatus FellowStatus { get; set; }
-
-        public Fellow()
-        {
-            
-        }
         #region Converter
 
         public static Fellow ConvertFellowInDbtoFellow(FellowInDb fellow)
@@ -36,9 +28,9 @@ namespace SafarCore.TripClasses
 
         #region Get Fellows
 
-        public static List<Fellow> GetFellowsByTripId(ObjectId tripId)
+        public static List<SafarObjects.TripClasses.Fellow> GetFellowsByTripId(ObjectId tripId)
         {
-            return new List<Fellow>();
+            return new List<SafarObjects.TripClasses.Fellow>();
         }
 
         public static List<ObjectId> GetAllTripIdsByUser(ObjectId ouserId)
@@ -57,32 +49,5 @@ namespace SafarCore.TripClasses
 
         #endregion
 
-    }
-
-    public class FellowInDb
-    {
-        [BsonId]
-        public ObjectId id { get; set; }
-        public ObjectId TripId { get; set; }
-        public ObjectId UserId { get; set; }
-        public int FellowType { get; set; }
-        public int FellowStatus { get; set; }
-
-        public FellowInDb()
-        {
-            
-        }
-    }
-
-    public enum FellowType
-    {
-        Type1 = 0,
-        Type2 = 1
-    }
-
-    public enum FellowStatus
-    {
-        Status1 = 0,
-        Status2 = 1
     }
 }

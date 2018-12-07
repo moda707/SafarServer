@@ -1,6 +1,0 @@
-C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netstandard1.6\SafarCore.deps.json
-C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netstandard1.6\SafarCore.dll
-C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard1.6\SafarCore.csprojAssemblyReference.cache
-C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard1.6\SafarCore.csproj.CoreCompileInputs.cache
-C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard1.6\SafarCore.AssemblyInfoInputs.cache
-C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netstandard1.6\SafarCore.AssemblyInfo.cs

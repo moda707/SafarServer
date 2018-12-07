@@ -5,28 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using SafarCore.DbClasses;
-using SafarCore.GenFunctions;
+using SafarObjects.TripClasses;
 
 namespace SafarCore.TripClasses
 {
-    public class Trip
+    public class TripFunc : Trip
     {
-        public ObjectId TripId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public ObjectId LeaderId { get; set; }
-        public List<Fellow> Fellows { get; set; }
-        public List<Destination> Destinations { get; set; }
-        public int Capacity { get; set; }
-
-        public Trip()
-        {
-            
-        }
-
         #region Converter
 
         public static async Task<Trip> ConvertTripInDbtoTrip(TripInDb tripInDb)
@@ -41,8 +25,8 @@ namespace SafarCore.TripClasses
                 EndDate = tripInDb.EndDate,
                 LeaderId = tripInDb.LeaderId,
                 Capacity = tripInDb.Capacity,
-                Fellows = Fellow.GetFellowsByTripId(tripInDb.TripId),
-                Destinations = await Destination.GetDestinationsByTripId(tripInDb.TripId.ToString())
+                Fellows = FellowFunc.GetFellowsByTripId(tripInDb.TripId),
+                Destinations = await DestinationFunc.GetDestinationsByTripId(tripInDb.TripId.ToString())
             };
         }
 
@@ -95,7 +79,7 @@ namespace SafarCore.TripClasses
         {
             var ouserId = ObjectId.Parse(userId);
 
-            var tripIdsList = Fellow.GetAllTripIdsByUser(ouserId);
+            var tripIdsList = FellowFunc.GetAllTripIdsByUser(ouserId);
 
             var filter = new List<FieldFilter>()
             {
@@ -118,41 +102,5 @@ namespace SafarCore.TripClasses
 
         #endregion
 
-    }
-
-    public class TripInDb
-    {
-        public ObjectId TripId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public ObjectId LeaderId { get; set; }
-        public int Capacity { get; set; }
-
-        public TripInDb()
-        {
-            
-        }
-    }
-
-    public class TripTrans
-    {
-        public string TripId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string LeaderId { get; set; }
-        public List<string> FellowIds { get; set; }
-        public List<KeyValuePair<string,string>> Destinations { get; set; }
-        public int Capacity { get; set; }
-
-        public TripTrans()
-        {
-            
-        }
     }
 }

@@ -8,27 +8,13 @@ using SafarCore.GenFunctions;
 
 namespace SafarCore.UserClasses
 {
-    public class Users
+    public class Users : SafarObjects.UserClasses.Users
     {
-        [BsonId]
-        public ObjectId _id { get; set; }
-        public ObjectId UserId { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string DisplayName { get; set; }
-        public string ProfileImage { get; set; }
-        public DateTime LastActivity { get; set; }
-
-        public Users()
-        {
-            
-        }
-
-        public static async Task<FuncResult> AddUser(UsersTrans userTrans)
+       public static Task<FuncResult> AddUser(UsersTrans userTrans)
         {
             var user = userTrans.GetUsersObject();
             
-            return await DbConnection.FastAddorUpdate(user, CollectionNames.User, new List<string>() {"UserId"});
+            return DbConnection.FastAddorUpdate(user, CollectionNames.User, new List<string>() {"UserId"});
         }
 
         public static Users getUserById(string userId)
@@ -62,37 +48,15 @@ namespace SafarCore.UserClasses
         }
     }
 
-    public class UsersTrans
+    public class UsersTrans : SafarObjects.UserClasses.UsersTrans
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string DisplayName { get; set; }
-        public string ProfileImage { get; set; }
-
-        public UsersTrans()
-        {
-            
-        }
-
+        
         public UsersTrans(string email, string password, string displayName, string profileImage)
         {
             Email = email;
             Password = password;
             DisplayName = displayName;
             ProfileImage = profileImage;
-        }
-
-        public Users GetUsersObject()
-        {
-            return new Users()
-            {
-                UserId = ObjectId.GenerateNewId(),
-                DisplayName = this.DisplayName,
-                Email = this.Email,
-                Password = this.Password,
-                ProfileImage = this.ProfileImage,
-                LastActivity = DateTime.Now
-            };
         }
     }
 }

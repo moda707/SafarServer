@@ -1,0 +1,12 @@
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netcoreapp2.1\SafarObjects.dll
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.csprojAssemblyReference.cache
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.csproj.CoreCompileInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.AssemblyInfoInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.AssemblyInfo.cs
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netcoreapp2.1\SafarCore.deps.json
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netcoreapp2.1\SafarCore.dll
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netcoreapp2.1\SafarCore.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarCore\bin\Debug\netcoreapp2.1\SafarObjects.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.csproj.CopyComplete
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.dll
+C:\Users\mohda\source\repos\SafarCore\SafarCore\obj\Debug\netcoreapp2.1\SafarCore.pdb

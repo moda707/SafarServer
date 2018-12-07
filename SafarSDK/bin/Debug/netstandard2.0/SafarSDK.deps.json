@@ -1,16 +1,17 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "7d7eb9a57ffa7c366ebe2e54372bf99ebe1142e0"
+    "signature": "4ccc1493d7b39fb6f0230a34a17f125932bf624c"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "SafarSDK/1.0.0": {
+      "SafarSDK/1.0.7": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "Newtonsoft.Json": "12.0.1"
+          "Newtonsoft.Json": "12.0.1",
+          "SafarObjects": "1.0.1"
         },
         "runtime": {
           "SafarSDK.dll": {}
@@ -29,11 +30,19 @@
             "fileVersion": "12.0.1.22727"
           }
         }
+      },
+      "SafarObjects/1.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/SafarObjects.dll": {
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
+          }
+        }
       }
     }
   },
   "libraries": {
-    "SafarSDK/1.0.0": {
+    "SafarSDK/1.0.7": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -58,6 +67,13 @@
       "sha512": "sha512-pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
       "path": "newtonsoft.json/12.0.1",
       "hashPath": "newtonsoft.json.12.0.1.nupkg.sha512"
+    },
+    "SafarObjects/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gCmPh4IIk+zlpBmbvqkRXqObl6UWQico+6nmDjt+6Wz04HCTE8OoDdy4+eHGS+BGJksqo35WnvJmKghb5rvJyg==",
+      "path": "safarobjects/1.0.1",
+      "hashPath": "safarobjects.1.0.1.nupkg.sha512"
     }
   }
 }

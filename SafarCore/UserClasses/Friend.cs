@@ -6,26 +6,16 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
 using SafarCore.GenFunctions;
+using SafarObjects.UserClasses;
 
 namespace SafarCore.UserClasses
 {
-    public class Friend
+    public class Friend : SafarObjects.UserClasses.Friend
     {
-        [BsonId]
-        public ObjectId UserId { get; set; }
-
-        public List<FriendShip> FriendShip { get; set; }
-
-
-        public Friend()
-        {
-            
-        }
-
         public static FuncResult SendRequest(ObjectId fromUserId, ObjectId toUserId)
         {
-            var fromFriendship = new FriendShip(toUserId, UserClasses.FriendShipStatus.RequestSent);
-            var toFriendship = new FriendShip(fromUserId, UserClasses.FriendShipStatus.RequestReceived);
+            var fromFriendship = new FriendShip(toUserId, FriendShipStatus.RequestSent);
+            var toFriendship = new FriendShip(fromUserId, FriendShipStatus.RequestReceived);
 
             var dbConnection = new DbConnection();
             dbConnection.Connect();
@@ -123,25 +113,5 @@ namespace SafarCore.UserClasses
 
             return new FuncResult(ResultEnum.Successfull);
         }
-    }
-
-    public class FriendShip
-    {
-        public ObjectId UserId { get; set; }
-        public FriendShipStatus Status { get; set; }
-
-        public FriendShip(ObjectId userId, FriendShipStatus status)
-        {
-            UserId = userId;
-            Status = status;
-        }
-    }
-
-    public enum FriendShipStatus
-    {
-        RequestSent = 0,
-        RequestAccepted = 1,
-        RequestReceived = 2
-
     }
 }

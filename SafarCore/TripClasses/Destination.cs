@@ -6,23 +6,13 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
 using SafarCore.GenFunctions;
+using SafarObjects.TripClasses;
 
 namespace SafarCore.TripClasses
 {
-    public class Destination
+    public class DestinationFunc : Destination
     {
-        [BsonId]
-        public ObjectId DestinationId { get; set; }
-        public string Title { get; set; }
-        public GeoPoint Location { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-
-        public Destination()
-        {
-            
-        }
-
+        
         #region Add Update Delete Functions
 
         public static async Task<FuncResult> AddUpdateDestination(Destination destination)
@@ -34,7 +24,8 @@ namespace SafarCore.TripClasses
         #endregion
 
         #region Get Destinations
-        public static async Task<List<Destination>> GetDestinationsByTripId(string tripId)
+
+        public static async Task<List<SafarObjects.TripClasses.Destination>> GetDestinationsByTripId(string tripId)
         {
             var otripId = ObjectId.Parse(tripId);
 
@@ -44,8 +35,9 @@ namespace SafarCore.TripClasses
             {
                 new FieldFilter("TripId", otripId, FieldType.ObjectId, CompareType.Equal)
             };
-            var r = await dbConnection.GetFilteredListAsync<Destination>(CollectionNames.Destinations, filter);
-            
+            var r = await dbConnection.GetFilteredListAsync<SafarObjects.TripClasses.Destination>(
+                CollectionNames.Destinations, filter);
+
             return r;
         }
 

@@ -1,0 +1,12 @@
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\SafarObjects.deps.json
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\SafarObjects.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\SafarObjects.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\MongoDB.Bson.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\MongoDB.Bson.xml
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.csprojAssemblyReference.cache
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.csproj.CoreCompileInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.AssemblyInfoInputs.cache
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.AssemblyInfo.cs
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.csproj.CopyComplete
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.pdb
