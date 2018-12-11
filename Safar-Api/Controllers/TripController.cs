@@ -19,7 +19,7 @@ namespace SafarApi.Controllers
         public string Get()
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
             var col = dbConnection.GetMongoCollection(CollectionNames.User);
             var data = col.AsQueryable().ToList();
 

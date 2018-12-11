@@ -12,13 +12,13 @@ namespace SafarCore.UserClasses
 {
     public class Friend : SafarObjects.UserClasses.Friend
     {
-        public static FuncResult SendRequest(ObjectId fromUserId, ObjectId toUserId)
+        public static FuncResult SendRequest(string fromUserId, string toUserId)
         {
             var fromFriendship = new FriendShip(toUserId, FriendShipStatus.RequestSent);
             var toFriendship = new FriendShip(fromUserId, FriendShipStatus.RequestReceived);
 
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             //add fromFriendship to fromUser
             var filter = new List<FieldFilter>()
@@ -77,10 +77,10 @@ namespace SafarCore.UserClasses
             return new FuncResult(ResultEnum.Successfull);
         }
 
-        public static FuncResult AcceptRequest(ObjectId currentUserId, ObjectId senderUserId)
+        public static FuncResult AcceptRequest(string currentUserId, string senderUserId)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             //update currentUser
             var filter = new List<FieldFilter>()

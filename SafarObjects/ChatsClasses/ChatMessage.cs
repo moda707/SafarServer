@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace SafarObjects.ChatsClasses
 {
     public class ChatMessage
     {
-        public ObjectId MessageId { get; set; }
-        public ObjectId TripId { get; set; }
+        [BsonId]
+        public ObjectId _id { get; set; }
+        public string MessageId { get; set; }
+        public string TripId { get; set; }
         public string MessageText { get; set; }
         public string FromName { get; set; }
-        public ObjectId FromId { get; set; }
+        public string FromId { get; set; }
         public string UriLink { get; set; }
         public ChatMessageType MessageType { get; set; }
         public ChatMessageStatus MessageStatus { get; set; }
@@ -28,10 +31,12 @@ namespace SafarObjects.ChatsClasses
 
     public class ChatMessageInDb
     {
-        public ObjectId MessageId { get; set; }
-        public ObjectId TripId { get; set; }
+        [BsonId]
+        public ObjectId _id { get; set; }
+        public string MessageId { get; set; }
+        public string TripId { get; set; }
         public string MessageText { get; set; }
-        public ObjectId FromId { get; set; }
+        public string FromId { get; set; }
         public string UriLink { get; set; }
         public int MessageType { get; set; }
         public int MessageStatus { get; set; }

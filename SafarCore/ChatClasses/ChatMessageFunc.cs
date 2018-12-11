@@ -20,7 +20,7 @@ namespace SafarCore.ChatClasses
                 TripId = chatMessageInDb.TripId,
                 MessageText = chatMessageInDb.MessageText,
                 FromId = chatMessageInDb.FromId,
-                FromName = Users.getUserById(chatMessageInDb.FromId.ToString()).DisplayName,
+                FromName = Users.GetUserById(chatMessageInDb.FromId.ToString()).DisplayName,
                 MessageDate = chatMessageInDb.MessageDate,
                 UriLink = chatMessageInDb.UriLink,
                 MessageType = (ChatMessageType)chatMessageInDb.MessageType,
@@ -33,10 +33,10 @@ namespace SafarCore.ChatClasses
         {
             return new ChatMessageInDb()
             {
-                MessageId = ObjectId.Parse(chatMessageTrans.MessageId),
-                TripId = ObjectId.Parse(chatMessageTrans.TripId),
+                MessageId = chatMessageTrans.MessageId,
+                TripId = chatMessageTrans.TripId,
                 MessageText = chatMessageTrans.MessageText,
-                FromId = ObjectId.Parse(chatMessageTrans.FromId),
+                FromId = chatMessageTrans.FromId,
                 MessageDate = chatMessageTrans.MessageDate,
                 UriLink = chatMessageTrans.UriLink,
                 MessageType = chatMessageTrans.MessageType,
@@ -64,7 +64,7 @@ namespace SafarCore.ChatClasses
         {
             var omessageId = ObjectId.Parse(messageId);
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
             var t = dbConnection.DeleteManyAsync(CollectionNames.Chats,
                 new List<FieldFilter>()
                 {
@@ -80,7 +80,6 @@ namespace SafarCore.ChatClasses
         {
             var otripId = ObjectId.Parse(tripId);
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
@@ -93,6 +92,15 @@ namespace SafarCore.ChatClasses
             return chatList;
         }
 
+        public static Task<List<string>> GetImagesListByTrip(string tripId)
+        {
+            return new Task<List<string>>(() => new List<string>());
+        }
+
+        public static Task<List<string>> GetVideosListByTrip(string tripId)
+        {
+            return new Task<List<string>>(() => new List<string>());
+        }
         #endregion
 
     }

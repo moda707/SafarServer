@@ -16,7 +16,7 @@ namespace SafarCore.DbClasses
 
         public DbConnection()
         {
-
+            Connect("SafarDB");
         }
 
         /* Connect to the Database */
@@ -496,7 +496,7 @@ namespace SafarCore.DbClasses
 
 
                 var dbConnection = new DbConnection();
-                dbConnection.Connect();
+                
                 var collection = dbConnection.GetMongoCollection(collectionName);
 
                 UpdateDefinition<BsonDocument> updated = new BsonDocument();
@@ -550,7 +550,7 @@ namespace SafarCore.DbClasses
 
 
                 var dbConnection = new DbConnection();
-                dbConnection.Connect();
+                
                 var collection = dbConnection.GetMongoCollection(collectionName);
 
                 UpdateDefinition<BsonDocument> updated = new BsonDocument();
@@ -938,6 +938,25 @@ namespace SafarCore.DbClasses
             }
         }
 
+        public static Task<FuncResult> DeleteMany(List<FieldFilter> filterkeys, CollectionNames collectionName)
+        {
+            try
+            {
+                var dbConnection = new DbConnection();
+                var collection = dbConnection.GetMongoCollection(collectionName);
+
+                var filter = dbConnection.FilterBuilder<BsonDocument>(filterkeys);
+
+                var delres = collection.DeleteManyAsync(filter);
+                return new Task<FuncResult>(() => new FuncResult(ResultEnum.Successfull));
+            }
+            catch (Exception e)
+            {
+                var logger = new Logger(ObjectId.Empty, "DbConnection", "DeleteMany", e.Message);
+                logger.AddLog();
+                return new Task<FuncResult>(() => new FuncResult(ResultEnum.Unsuccessfull, e.Message));
+            }
+        }
 
         public static Task<FuncResult> FastAddorUpdate(object odocument, CollectionNames collectionName,
             List<string> keyList = null)
@@ -945,7 +964,7 @@ namespace SafarCore.DbClasses
             try
             {
                 var dbConnection = new DbConnection();
-                dbConnection.Connect();
+                
 
                 var collection = dbConnection.GetMongoCollection(collectionName);
                 var document = odocument.ToBsonDocument();

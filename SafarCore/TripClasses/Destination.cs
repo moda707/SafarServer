@@ -15,32 +15,50 @@ namespace SafarCore.TripClasses
         
         #region Add Update Delete Functions
 
-        public static async Task<FuncResult> AddUpdateDestination(Destination destination)
+        public static Task<FuncResult> AddUpdateDestination(Destination destination)
         {
-            return await DbConnection.FastAddorUpdate(destination, CollectionNames.Destinations,
+            return DbConnection.FastAddorUpdate(destination, CollectionNames.Destinations,
                 new List<string>() {"DestinationId"});
+        }
+
+        public static Task<FuncResult> DeleteDestination(string destinationId)
+        {
+            var filter = new List<FieldFilter>()
+            {
+                new FieldFilter("DestinationId", destinationId, FieldType.String, CompareType.Equal)
+            };
+
+            var res = DbConnection.DeleteMany(filter, CollectionNames.Destinations);
+            return res;
         }
 
         #endregion
 
         #region Get Destinations
 
-        public static async Task<List<SafarObjects.TripClasses.Destination>> GetDestinationsByTripId(string tripId)
+        public static Task<List<Destination>> GetDestinationsByTripId(string tripId)
         {
-            var otripId = ObjectId.Parse(tripId);
-
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("TripId", otripId, FieldType.ObjectId, CompareType.Equal)
+                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
-            var r = await dbConnection.GetFilteredListAsync<SafarObjects.TripClasses.Destination>(
+            var r = dbConnection.GetFilteredListAsync<Destination>(
                 CollectionNames.Destinations, filter);
 
             return r;
         }
 
+        public static Task<List<GeoPoint>> GetRouteByTrip(string tripId)
+        {
+            return new Task<List<GeoPoint>>(() => new List<GeoPoint>());
+        }
+
+        public static Task<List<Destination>> GetRecommendations(string tripId)
+        {
+            return new Task<List<Destination>>(() => new List<Destination>());
+        }
 
         #endregion
 

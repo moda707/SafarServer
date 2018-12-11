@@ -22,6 +22,8 @@ namespace SafarCore.DbClasses
                     return "Trips";
                 case CollectionNames.Chats:
                     return "Chats";
+                case CollectionNames.TimelineMessages:
+                    return "TimelineMessages";
                 case CollectionNames.Timelines:
                     return "Timelines";
                 case CollectionNames.Destinations:
@@ -30,7 +32,8 @@ namespace SafarCore.DbClasses
                     return "Locations";
                 case CollectionNames.Friends:
                     return "Friends";
-                
+                case CollectionNames.Expenses:
+                    return "Expenses";
                 case CollectionNames.Logs:
                     return "Logs";
 
@@ -54,12 +57,14 @@ namespace SafarCore.DbClasses
         Trip = 1,
 
         Chats = 2,
-        Timelines = 3,
+        TimelineMessages = 3,
         Destinations = 4,
         Locations = 5,
         Fellows = 6,
 
         Friends = 7,
+        Timelines = 8,
+        Expenses = 9,
         
         Logs = 100,
         

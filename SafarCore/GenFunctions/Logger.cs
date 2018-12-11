@@ -35,7 +35,7 @@ namespace SafarCore.GenFunctions
         public FuncResult AddLog()
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             return dbConnection.AddorUpdate(this.ToBsonDocument(),
                 dbConnection.GetMongoCollection(CollectionNames.Logs));
@@ -44,7 +44,7 @@ namespace SafarCore.GenFunctions
         public static List<Logger> GetLogs(int count)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             var col = dbConnection.GetFilteredList<Logger>(CollectionNames.Logs, null)
                 .OrderByDescending(x => x.ErrorTime).Take(count).ToList();

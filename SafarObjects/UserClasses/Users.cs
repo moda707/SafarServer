@@ -8,7 +8,7 @@ namespace SafarObjects.UserClasses
     {
         [BsonId]
         public ObjectId _id { get; set; }
-        public ObjectId UserId { get; set; }
+        public string UserId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string DisplayName { get; set; }
@@ -38,7 +38,7 @@ namespace SafarObjects.UserClasses
         {
             return new Users()
             {
-                UserId = ObjectId.GenerateNewId(),
+                UserId = Guid.NewGuid().ToString(),
                 DisplayName = this.DisplayName,
                 Email = this.Email,
                 Password = this.Password,
@@ -46,5 +46,16 @@ namespace SafarObjects.UserClasses
                 LastActivity = DateTime.Now
             };
         }
+    }
+
+    public class UserProfile
+    {
+
+    }
+
+    public enum UserStatus
+    {
+        Online = 0,
+        Offline = 1
     }
 }

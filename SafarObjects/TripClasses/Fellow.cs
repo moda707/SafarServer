@@ -10,27 +10,14 @@ namespace SafarObjects.TripClasses
 {
     public class Fellow
     {
-        public ObjectId TripId { get; set; }
-        public ObjectId UserId { get; set; }
+        [BsonId]
+        public ObjectId _id { get; set; }
+        public string TripId { get; set; }
+        public string UserId { get; set; }
         public FellowType FellowType { get; set; }
         public FellowStatus FellowStatus { get; set; }
 
         public Fellow()
-        {
-            
-        }
-    }
-
-    public class FellowInDb
-    {
-        [BsonId]
-        public ObjectId id { get; set; }
-        public ObjectId TripId { get; set; }
-        public ObjectId UserId { get; set; }
-        public int FellowType { get; set; }
-        public int FellowStatus { get; set; }
-
-        public FellowInDb()
         {
             
         }

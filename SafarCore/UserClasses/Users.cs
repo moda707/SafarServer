@@ -5,6 +5,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using SafarCore.DbClasses;
 using SafarCore.GenFunctions;
+using SafarObjects.TripClasses;
+using SafarObjects.UserClasses;
 
 namespace SafarCore.UserClasses
 {
@@ -12,16 +14,19 @@ namespace SafarCore.UserClasses
     {
        public static Task<FuncResult> AddUser(UsersTrans userTrans)
         {
+            //check the existence of this email
+
+
             var user = userTrans.GetUsersObject();
             
             return DbConnection.FastAddorUpdate(user, CollectionNames.User, new List<string>() {"UserId"});
         }
 
-        public static Users getUserById(string userId)
+        public static Users GetUserById(string userId)
         {
             var ouserId = ObjectId.Parse(userId);
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
             var filter = new List<FieldFilter>()
             {
                 new FieldFilter("UserId", ouserId, FieldType.ObjectId, CompareType.Equal)
@@ -32,10 +37,10 @@ namespace SafarCore.UserClasses
             return user[0];
         }
 
-        public static Task<List<Users>> getUserByEmailPassword(string email, string password)
+        public static Task<List<Users>> GetUserByEmailPassword(string email, string password)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
             var filter = new List<FieldFilter>()
             {
                 new FieldFilter("Email", email, FieldType.String, CompareType.Equal),
@@ -46,17 +51,40 @@ namespace SafarCore.UserClasses
 
             return user;
         }
-    }
 
-    public class UsersTrans : SafarObjects.UserClasses.UsersTrans
-    {
-        
-        public UsersTrans(string email, string password, string displayName, string profileImage)
+        public static Task<FuncResult> UpdateUser(Users users)
         {
-            Email = email;
-            Password = password;
-            DisplayName = displayName;
-            ProfileImage = profileImage;
+            return new Task<FuncResult>(() => new FuncResult(ResultEnum.Successfull));
+        }
+
+        public static Task<FuncResult> DeleteUser(string userId)
+        {
+            return new Task<FuncResult>(() => new FuncResult(ResultEnum.Successfull));
+        }
+
+        public static Task<List<Friend>> GetFriendsByUser(string userId)
+        {
+            return new Task<List<Friend>>(() => new List<Friend>());
+        }
+
+        public static Task<Friend> GetFriendById(string friendId)
+        {
+            return new Task<Friend>(() => new Friend());
+        }
+
+        public static Task<List<Fellow>> GetFellowsByTrip(string tripId)
+        {
+            return new Task<List<Fellow>>(() => new List<Fellow>());
+        }
+
+        public static Task<UserProfile> GetUserProfile(string userId)
+        {
+            return null;
+        }
+
+        public static Task<UserStatus> GetUserStatus(string userId)
+        {
+            return new Task<UserStatus>(() => UserStatus.Offline);
         }
     }
 }

@@ -10,7 +10,8 @@ namespace SafarObjects.TripClasses
     public class Destination
     {
         [BsonId]
-        public ObjectId DestinationId { get; set; }
+        public ObjectId _id { get; set; }
+        public string DestinationId { get; set; }
         public string Title { get; set; }
         public GeoPoint Location { get; set; }
         public DateTime StartDate { get; set; }

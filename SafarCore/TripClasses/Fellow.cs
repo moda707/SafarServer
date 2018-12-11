@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+using System.Threading.Tasks;
 using SafarCore.DbClasses;
 using SafarObjects.TripClasses;
 
@@ -11,38 +8,31 @@ namespace SafarCore.TripClasses
 {
     public class FellowFunc : Fellow
     {
-        #region Converter
-
-        public static Fellow ConvertFellowInDbtoFellow(FellowInDb fellow)
-        {
-            return new Fellow()
-            {
-                TripId = fellow.TripId,
-                UserId = fellow.UserId,
-                FellowType = (FellowType)fellow.FellowType,
-                FellowStatus = (FellowStatus)fellow.FellowStatus
-            };
-        }
-
-        #endregion
-
+        
         #region Get Fellows
 
-        public static List<SafarObjects.TripClasses.Fellow> GetFellowsByTripId(ObjectId tripId)
-        {
-            return new List<SafarObjects.TripClasses.Fellow>();
-        }
-
-        public static List<ObjectId> GetAllTripIdsByUser(ObjectId ouserId)
+        public static Task<List<Fellow>> GetFellowsByTripId(string tripId)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("UserId", ouserId, FieldType.ObjectId, CompareType.Equal)
+                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
-            var l = dbConnection.GetFilteredList<FellowInDb>(CollectionNames.Fellows, filter);
+            var l = dbConnection.GetFilteredListAsync<Fellow>(CollectionNames.Fellows, filter);
+
+            return l;
+        }
+
+        public static List<string> GetAllTripIdsByUser(string userId)
+        {
+            var dbConnection = new DbConnection();
+
+            var filter = new List<FieldFilter>()
+            {
+                new FieldFilter("UserId", userId, FieldType.String, CompareType.Equal)
+            };
+            var l = dbConnection.GetFilteredList<Fellow>(CollectionNames.Fellows, filter);
 
             return l.Select(x=> x.TripId).ToList();
         }

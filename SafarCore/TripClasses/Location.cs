@@ -18,48 +18,48 @@ namespace SafarCore.TripClasses
             return await DbConnection.FastAddorUpdate(location, CollectionNames.Locations, new List<string>() {"id"});
         }
 
-        public static Location GetLastLocation(ObjectId userId)
+        public static async Task<Location> GetLastLocation(string userId)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("UserId", userId, FieldType.ObjectId, CompareType.Equal)
+                new FieldFilter("UserId", userId, FieldType.String, CompareType.Equal)
             };
             var sort = new SortFilter("LocationTime", SortType.Descending);
-            var list = dbConnection.GetFilteredList<Location>(CollectionNames.Locations, filter, sort, 1);
+            var list = await dbConnection.GetFilteredListAsync<Location>(CollectionNames.Locations, filter, sort, 1);
             return list.Count>0 ? list[0] : null;
         }
 
-        public static List<Location> GetLastUserLocationInTrip(ObjectId tripId, ObjectId userId, int count)
+        public static Task<List<Location>> GetLastUserLocationInTrip(string tripId, string userId, int count)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("UserId", userId, FieldType.ObjectId, CompareType.Equal),
-                new FieldFilter("TripId", tripId, FieldType.ObjectId, CompareType.Equal)
+                new FieldFilter("UserId", userId, FieldType.String, CompareType.Equal),
+                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
 
             var sort = new SortFilter("LocationTime", SortType.Descending);
-            var list = dbConnection.GetFilteredList<Location>(CollectionNames.Locations, filter, sort, count);
+            var list = dbConnection.GetFilteredListAsync<Location>(CollectionNames.Locations, filter, sort, count);
             return list;
         }
 
-        public static List<Location> GetAllUsersLocationInTrip(ObjectId tripId, int count)
+        public static Task<List<Location>> GetAllUsersLocationInTrip(string tripId, int count)
         {
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("TripId", tripId, FieldType.ObjectId, CompareType.Equal)
+                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
 
             var sort = new SortFilter("LocationTime", SortType.Descending);
-            var list = dbConnection.GetFilteredList<Location>(CollectionNames.Locations, filter, sort, count);
+            var list = dbConnection.GetFilteredListAsync<Location>(CollectionNames.Locations, filter, sort, count);
             return list;
         }
 

@@ -25,7 +25,7 @@ namespace SafarCore.TripClasses
                 EndDate = tripInDb.EndDate,
                 LeaderId = tripInDb.LeaderId,
                 Capacity = tripInDb.Capacity,
-                Fellows = FellowFunc.GetFellowsByTripId(tripInDb.TripId),
+                Fellows = await FellowFunc.GetFellowsByTripId(tripInDb.TripId),
                 Destinations = await DestinationFunc.GetDestinationsByTripId(tripInDb.TripId.ToString())
             };
         }
@@ -35,14 +35,14 @@ namespace SafarCore.TripClasses
             return new TripInDb()
             {
                 TripId = string.IsNullOrEmpty(tripTrans.TripId)?
-                    ObjectId.GenerateNewId():
-                    ObjectId.Parse(tripTrans.TripId),
+                    Guid.NewGuid().ToString():
+                    tripTrans.TripId,
                 Title = tripTrans.Title,
                 Description = tripTrans.Description,
                 CreateDate = tripTrans.CreateDate,
                 StartDate = tripTrans.StartDate,
                 EndDate = tripTrans.EndDate,
-                LeaderId = ObjectId.Parse(tripTrans.LeaderId),
+                LeaderId = tripTrans.LeaderId,
                 Capacity = tripTrans.Capacity
             };
         }
@@ -50,10 +50,19 @@ namespace SafarCore.TripClasses
 
         #region Add Update Delete Functions
 
-        public static async Task<FuncResult> AddUpdateTrip(TripTrans tripTrans)
+        public static Task<FuncResult> AddUpdateTrip(TripTrans tripTrans)
         {
             var tripInDb = ConvertTripTranstoTripInDb(tripTrans);
-            return await DbConnection.FastAddorUpdate(tripInDb, CollectionNames.Trip, new List<string>() {"TripId"});
+            return DbConnection.FastAddorUpdate(tripInDb, CollectionNames.Trip, new List<string>() {"TripId"});
+        }
+
+        public static Task<FuncResult> DeleteTrip(string tripId)
+        {
+            var filter = new List<FieldFilter>()
+            {
+                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
+            };
+            return DbConnection.DeleteMany(filter, CollectionNames.Trip);
         }
 
         #endregion
@@ -64,7 +73,6 @@ namespace SafarCore.TripClasses
         {
             var otripId = ObjectId.Parse(tripId);
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
 
             var filter = new List<FieldFilter>()
             {
@@ -77,9 +85,7 @@ namespace SafarCore.TripClasses
 
         public static async Task<List<Trip>> GetTripsByUserId(string userId)
         {
-            var ouserId = ObjectId.Parse(userId);
-
-            var tripIdsList = FellowFunc.GetAllTripIdsByUser(ouserId);
+            var tripIdsList = FellowFunc.GetAllTripIdsByUser(userId);
 
             var filter = new List<FieldFilter>()
             {
@@ -87,7 +93,7 @@ namespace SafarCore.TripClasses
             };
 
             var dbConnection = new DbConnection();
-            dbConnection.Connect();
+            
 
             var tripsInDbList = await dbConnection.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
             var tripsList = new List<Trip>();

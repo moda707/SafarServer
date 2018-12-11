@@ -7,9 +7,9 @@ namespace SafarObjects.TripClasses
     public class Location
     {
         [BsonId]
-        public ObjectId id { get; set; }
-        public ObjectId UserId { get; set; }
-        public ObjectId TripId { get; set; }
+        public ObjectId _id { get; set; }
+        public string UserId { get; set; }
+        public string TripId { get; set; }
         public DateTime LocationTime { get; set; }
         public GeoPoint GeoPoint { get; set; }
 

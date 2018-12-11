@@ -6,8 +6,8 @@ namespace SafarObjects.UserClasses
 {
     public class Friend
     {
-        [BsonId]
-        public ObjectId UserId { get; set; }
+        [BsonId] public ObjectId _id { get; set; }
+        public string UserId { get; set; }
 
         public List<FriendShip> FriendShip { get; set; }
 
@@ -21,10 +21,10 @@ namespace SafarObjects.UserClasses
 
     public class FriendShip
     {
-        public ObjectId UserId { get; set; }
+        public string UserId { get; set; }
         public FriendShipStatus Status { get; set; }
 
-        public FriendShip(ObjectId userId, FriendShipStatus status)
+        public FriendShip(string userId, FriendShipStatus status)
         {
             UserId = userId;
             Status = status;
