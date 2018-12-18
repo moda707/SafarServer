@@ -4,10 +4,32 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace SafarObjects.UserClasses
 {
-    public class Users
+    public class UsersInDb : Users
     {
         [BsonId]
         public ObjectId _id { get; set; }
+
+        public UsersInDb() 
+        {
+            
+        }
+        
+        public Users GetUser()
+        {
+            return new Users()
+            {
+                UserId = this.UserId,
+                DisplayName = this.DisplayName,
+                Email = this.Email,
+                Password = this.Password,
+                LastActivity = this.LastActivity,
+                ProfileImage = this.ProfileImage
+            };
+        }
+    }
+
+    public class Users
+    {
         public string UserId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -17,33 +39,20 @@ namespace SafarObjects.UserClasses
 
         public Users()
         {
-            
-        }
-
-    }
-
-    public class UsersTrans
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string DisplayName { get; set; }
-        public string ProfileImage { get; set; }
-
-        public UsersTrans()
-        {
 
         }
 
-        public Users GetUsersObject()
+        public UsersInDb GetUserInDb()
         {
-            return new Users()
+            return new UsersInDb()
             {
-                UserId = Guid.NewGuid().ToString(),
+                UserId = this.UserId,
                 DisplayName = this.DisplayName,
                 Email = this.Email,
                 Password = this.Password,
+                LastActivity = this.LastActivity,
                 ProfileImage = this.ProfileImage,
-                LastActivity = DateTime.Now
+                _id = ObjectId.GenerateNewId()
             };
         }
     }

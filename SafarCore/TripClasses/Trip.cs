@@ -26,11 +26,11 @@ namespace SafarCore.TripClasses
                 LeaderId = tripInDb.LeaderId,
                 Capacity = tripInDb.Capacity,
                 Fellows = await FellowFunc.GetFellowsByTripId(tripInDb.TripId),
-                Destinations = await DestinationFunc.GetDestinationsByTripId(tripInDb.TripId.ToString())
+                Destinations = await DestinationFunc.GetDestinationsByTripId(tripInDb.TripId)
             };
         }
 
-        public static TripInDb ConvertTripTranstoTripInDb(TripTrans tripTrans)
+        public static TripInDb ConvertTriptoTripInDb(Trip tripTrans)
         {
             return new TripInDb()
             {
@@ -50,10 +50,18 @@ namespace SafarCore.TripClasses
 
         #region Add Update Delete Functions
 
-        public static Task<FuncResult> AddUpdateTrip(TripTrans tripTrans)
+        public static FuncResult AddUpdateTrip(Trip trip)
         {
-            var tripInDb = ConvertTripTranstoTripInDb(tripTrans);
-            return DbConnection.FastAddorUpdate(tripInDb, CollectionNames.Trip, new List<string>() {"TripId"});
+            try
+            {
+                var tripInDb = ConvertTriptoTripInDb(trip);
+                return DbConnection.FastAddorUpdate(tripInDb.ToBsonDocument(), CollectionNames.Trip, new List<string>() {"TripId"});
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static Task<FuncResult> DeleteTrip(string tripId)

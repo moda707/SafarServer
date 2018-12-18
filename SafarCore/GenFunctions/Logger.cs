@@ -11,8 +11,8 @@ namespace SafarCore.GenFunctions
     public class Logger
     {
         [BsonId]
-        public ObjectId Id { get; set; }
-        public ObjectId UserId { get; set; }
+        public ObjectId _id { get; set; }
+        public string UserId { get; set; }
         public string Classname { get; set; }
         public string Functionname { get; set; }
         public string Message { get; set; }
@@ -23,7 +23,7 @@ namespace SafarCore.GenFunctions
 
         }
 
-        public Logger(ObjectId userId, string classname, string functionname, string message)
+        public Logger(string userId, string classname, string functionname, string message)
         {
             UserId = userId;
             Classname = classname;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SafarCore.UserClasses;
+using SafarObjects.UserClasses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,20 +24,30 @@ namespace SafarApi.Controllers
         [HttpGet("{id}")]
         public Users Get(string id)
         {
-            return Users.getUserById(id);
+            return UsersFunc.GetUserById(id);
         }
 
         [HttpGet("{email}/{password}")]
         public async Task<Users> Get(string email, string password)
         {
-            return (await Users.getUserByEmailPassword(email, password))[0];
+
+            try
+            {
+                var uu = await UsersFunc.GetUserByEmailPassword(email, password);
+                var u = (uu)[0].GetUser();
+                return u;
+            }
+            catch (Exception e)
+            {
+                return new Users();
+            }
         }
 
         // POST api/<controller>
         [HttpPost]
-        public async void Post([FromBody]UsersTrans value)
+        public  void Post([FromBody]Users value)
         {
-            var t = await Users.AddUser(value);
+            var t =  UsersFunc.AddUser(value);
         }
 
         // PUT api/<controller>/5

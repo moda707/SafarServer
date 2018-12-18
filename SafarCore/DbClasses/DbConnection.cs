@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SafarCore.GenFunctions;
+using SafarObjects.UserClasses;
 
 namespace SafarCore.DbClasses
 {
@@ -36,14 +37,14 @@ namespace SafarCore.DbClasses
                 }
                 catch (Exception e)
                 {
-                    var logger = new Logger(ObjectId.Empty, "DbConnection", "Connect to db", e.Message);
+                    var logger = new Logger("", "DbConnection", "Connect to db", e.Message);
                     logger.AddLog();
                     return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
                 }
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "Connect to client", e.Message);
+                var logger = new Logger("", "DbConnection", "Connect to client", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -73,7 +74,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                var logger = new Logger("", "DbConnection", "GetFilteredList", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -101,7 +102,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                var logger = new Logger("", "DbConnection", "GetFilteredList", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -148,7 +149,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                var logger = new Logger("", "DbConnection", "GetFilteredList", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -179,7 +180,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetORFilteredList", e.Message);
+                var logger = new Logger("", "DbConnection", "GetORFilteredList", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -204,7 +205,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                var logger = new Logger("", "DbConnection", "GetFilteredList", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -236,7 +237,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "GetFilteredList", e.Message);
+                var logger = new Logger("", "DbConnection", "GetFilteredList", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -279,7 +280,6 @@ namespace SafarCore.DbClasses
                     {
                         //Update
                         collection.ReplaceOneAsync(filter, document);
-
                     }
                     else
                     {
@@ -291,7 +291,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdate", e.Message);
+                var logger = new Logger("", "DbConnection", "AddorUpdate", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -335,7 +335,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdate", e.Message);
+                var logger = new Logger("", "DbConnection", "AddorUpdate", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -382,7 +382,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdateMany", e.Message);
+                var logger = new Logger("", "DbConnection", "AddorUpdateMany", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -427,7 +427,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdateMany", e.Message);
+                var logger = new Logger("", "DbConnection", "AddorUpdateMany", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -454,7 +454,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorReplaceMany", passed + e.Message);
+                var logger = new Logger("", "DbConnection", "AddorReplaceMany", passed + e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -480,7 +480,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorReplaceMany", passed + e.Message);
+                var logger = new Logger("", "DbConnection", "AddorReplaceMany", passed + e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -535,7 +535,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "UpdateField", e.Message);
+                var logger = new Logger("", "DbConnection", "UpdateField", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -587,7 +587,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "UpdateField", e.Message);
+                var logger = new Logger("", "DbConnection", "UpdateField", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -623,7 +623,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "InsertMany", e.Message);
+                var logger = new Logger("", "DbConnection", "InsertMany", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -659,7 +659,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "InsertMany", e.Message);
+                var logger = new Logger("", "DbConnection", "InsertMany", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -674,7 +674,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "Delete", e.Message);
+                var logger = new Logger("", "DbConnection", "Delete", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -689,7 +689,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "Delete", e.Message);
+                var logger = new Logger("", "DbConnection", "Delete", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -706,7 +706,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "Delete", e.Message);
+                var logger = new Logger("", "DbConnection", "Delete", e.Message);
                 logger.AddLog();
                 return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
@@ -861,7 +861,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "FilterBuilder", e.Message);
+                var logger = new Logger("", "DbConnection", "FilterBuilder", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -887,7 +887,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "SortBuilder", e.Message);
+                var logger = new Logger("", "DbConnection", "SortBuilder", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -910,7 +910,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "FilterBuilderOR", e.Message);
+                var logger = new Logger("", "DbConnection", "FilterBuilderOR", e.Message);
                 logger.AddLog();
                 return null;
             }
@@ -932,7 +932,7 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "DeleteMany", e.Message);
+                var logger = new Logger("", "DbConnection", "DeleteMany", e.Message);
                 logger.AddLog();
                 return "-1";
             }
@@ -952,32 +952,39 @@ namespace SafarCore.DbClasses
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "DeleteMany", e.Message);
+                var logger = new Logger("", "DbConnection", "DeleteMany", e.Message);
                 logger.AddLog();
                 return new Task<FuncResult>(() => new FuncResult(ResultEnum.Unsuccessfull, e.Message));
             }
         }
 
-        public static Task<FuncResult> FastAddorUpdate(object odocument, CollectionNames collectionName,
+        public static FuncResult FastAddorUpdate(BsonDocument odocument, CollectionNames collectionName,
             List<string> keyList = null)
         {
             try
             {
                 var dbConnection = new DbConnection();
                 
-
                 var collection = dbConnection.GetMongoCollection(collectionName);
+                
                 var document = odocument.ToBsonDocument();
 
-                var res = dbConnection.AddorUpdateAsync(document, collection, keyList);
+                var res = dbConnection.AddorUpdate(document, collection, keyList);
                 return res;
             }
             catch (Exception e)
             {
-                var logger = new Logger(ObjectId.Empty, "DbConnection", "AddorUpdate", e.Message);
+                var logger = new Logger("", "DbConnection", "AddorUpdate", e.Message);
                 logger.AddLog();
-                return new Task<FuncResult>(() => new FuncResult(ResultEnum.Unsuccessfull, e.Message));
+                return new FuncResult(ResultEnum.Unsuccessfull, e.Message);
             }
+        }
+
+        public bool HasDocument(CollectionNames collectionName, List<FieldFilter> filterList)
+        {
+            var filter = FilterBuilder<BsonDocument>(filterList);
+
+            return _database.GetCollection<BsonDocument>(Collections.GetCollectionName(collectionName)).Find(filter).Any();
         }
     }
     

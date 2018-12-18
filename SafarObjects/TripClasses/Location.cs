@@ -6,8 +6,6 @@ namespace SafarObjects.TripClasses
 {
     public class Location
     {
-        [BsonId]
-        public ObjectId _id { get; set; }
         public string UserId { get; set; }
         public string TripId { get; set; }
         public DateTime LocationTime { get; set; }
@@ -18,6 +16,39 @@ namespace SafarObjects.TripClasses
             
         }
 
+        public LocationInDb GetLocationInDb()
+        {
+            return new LocationInDb()
+            {
+                UserId = this.UserId,
+                TripId = this.TripId,
+                GeoPoint = this.GeoPoint,
+                LocationTime = this.LocationTime
+            };
+        }
+
+    }
+
+    public class LocationInDb : Location
+    {
+        [BsonId]
+        public ObjectId _id { get; set; }
+        
+        public LocationInDb()
+        {
+
+        }
+
+        public Location GetLocation()
+        {
+            return new Location()
+            {
+                UserId = this.UserId,
+                TripId = this.TripId,
+                GeoPoint = this.GeoPoint,
+                LocationTime = this.LocationTime
+            };
+        }
     }
 
     public class GeoPoint

@@ -1552,7 +1552,7 @@
           "lib/netstandard1.3/System.Threading.ThreadPool.dll": {}
         }
       },
-      "SafarObjects/1.0.1": {
+      "SafarObjects/1.0.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "compile": {
@@ -5392,7 +5392,7 @@
         "system.threading.threadpool.nuspec"
       ]
     },
-    "SafarObjects/1.0.1": {
+    "SafarObjects/1.0.3": {
       "type": "project",
       "path": "../SafarObjects/SafarObjects.csproj",
       "msbuildProject": "../SafarObjects/SafarObjects.csproj"
@@ -5402,7 +5402,7 @@
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.NETCore.App >= 2.1.0",
       "MongoDB.Driver >= 2.7.2",
-      "SafarObjects >= 1.0.1"
+      "SafarObjects >= 1.0.3"
     ]
   },
   "packageFolders": {

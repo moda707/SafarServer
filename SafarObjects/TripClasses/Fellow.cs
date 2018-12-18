@@ -10,8 +10,6 @@ namespace SafarObjects.TripClasses
 {
     public class Fellow
     {
-        [BsonId]
-        public ObjectId _id { get; set; }
         public string TripId { get; set; }
         public string UserId { get; set; }
         public FellowType FellowType { get; set; }
@@ -21,8 +19,41 @@ namespace SafarObjects.TripClasses
         {
             
         }
+
+        public FellowInDb GetFellowInDb()
+        {
+            return new FellowInDb()
+            {
+                UserId = this.UserId,
+                TripId = this.TripId,
+                FellowStatus = this.FellowStatus,
+                FellowType = this.FellowType
+            };
+        }
     }
 
+    public class FellowInDb:Fellow
+    {
+        [BsonId]
+        public ObjectId _id { get; set; }
+        
+
+        public FellowInDb()
+        {
+
+        }
+
+        public Fellow GetFellow()
+        {
+            return new Fellow()
+            {
+                UserId = this.UserId,
+                TripId = this.TripId,
+                FellowStatus = this.FellowStatus,
+                FellowType = this.FellowType
+            };
+        }
+    }
     public enum FellowType
     {
         Type1 = 0,

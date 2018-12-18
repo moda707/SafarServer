@@ -9,8 +9,6 @@ namespace SafarObjects.ChatsClasses
 {
     public class TimelineMessage
     {
-        [BsonId]
-        public ObjectId _id { get; set; }
         public string TimelineId { get; set; }
         public string MessageId { get; set; }
         public string MessageText { get; set; }
@@ -27,6 +25,59 @@ namespace SafarObjects.ChatsClasses
 
         public GeoPoint GeoLocation { get; set; }
 
+        public TimelineMessageInDb GetTimelineMessageInDb()
+        {
+            return new TimelineMessageInDb()
+            {
+                TimelineId = this.TimelineId,
+                FromId = this.FromId,
+                FromName = this.FromName,
+                MessageId = this.MessageId,
+                MessageText = this.MessageText,
+                GeoLocation = this.GeoLocation,
+                MessageDate = this.MessageDate,
+                UriLink = this.UriLink,
+                LikedCount = this.LikedCount,
+                SeenCount = this.SeenCount,
+                SharedCount = this.SharedCount,
+                TimelineMessagePrivacyType = this.TimelineMessagePrivacyType,
+                TimelineMessageStatus = this.TimelineMessageStatus,
+                TimelineMessageType = this.TimelineMessageType
+            };
+        }
+    }
+
+    public class TimelineMessageInDb : TimelineMessage
+    {
+        [BsonId]
+        public ObjectId _id { get; set; }
+        
+
+        public TimelineMessageInDb()
+        {
+            
+        }
+
+        public TimelineMessage GetTimelineMessage()
+        {
+            return new TimelineMessage()
+            {
+                TimelineId = this.TimelineId,
+                FromId = this.FromId,
+                FromName = this.FromName,
+                MessageId = this.MessageId,
+                MessageText = this.MessageText,
+                GeoLocation = this.GeoLocation,
+                MessageDate = this.MessageDate,
+                UriLink = this.UriLink,
+                LikedCount = this.LikedCount,
+                SeenCount = this.SeenCount,
+                SharedCount = this.SharedCount,
+                TimelineMessagePrivacyType = this.TimelineMessagePrivacyType,
+                TimelineMessageStatus = this.TimelineMessageStatus,
+                TimelineMessageType = this.TimelineMessageType
+            };
+        }
     }
 
     public enum TimelineMessageType

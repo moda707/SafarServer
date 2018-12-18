@@ -26,39 +26,12 @@ namespace SafarObjects.TripClasses
         
     }
 
-    public class TripInDb
+    public class TripInDb : Trip
     {
         [BsonId]
         public ObjectId _id { get; set; }
-        public string TripId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string LeaderId { get; set; }
-        public int Capacity { get; set; }
-
+        
         public TripInDb()
-        {
-            
-        }
-    }
-
-    public class TripTrans
-    {
-        public string TripId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string LeaderId { get; set; }
-        public List<string> FellowIds { get; set; }
-        public List<KeyValuePair<string,string>> Destinations { get; set; }
-        public int Capacity { get; set; }
-
-        public TripTrans()
         {
             
         }

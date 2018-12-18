@@ -13,9 +13,9 @@ namespace SafarCore.TripClasses
 {
     public class LocationFunc : Location
     {
-        public static async Task<FuncResult> AddUpdateLocation(Location location)
+        public static FuncResult AddUpdateLocation(Location location)
         {
-            return await DbConnection.FastAddorUpdate(location, CollectionNames.Locations, new List<string>() {"id"});
+            return DbConnection.FastAddorUpdate(location.ToBsonDocument(), CollectionNames.Locations, new List<string>() {"id"});
         }
 
         public static async Task<Location> GetLastLocation(string userId)

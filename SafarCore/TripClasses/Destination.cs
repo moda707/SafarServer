@@ -15,9 +15,9 @@ namespace SafarCore.TripClasses
         
         #region Add Update Delete Functions
 
-        public static Task<FuncResult> AddUpdateDestination(Destination destination)
+        public static FuncResult AddUpdateDestination(Destination destination)
         {
-            return DbConnection.FastAddorUpdate(destination, CollectionNames.Destinations,
+            return DbConnection.FastAddorUpdate(destination.ToBsonDocument(), CollectionNames.Destinations,
                 new List<string>() {"DestinationId"});
         }
 

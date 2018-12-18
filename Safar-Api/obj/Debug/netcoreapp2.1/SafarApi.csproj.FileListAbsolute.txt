@@ -32,3 +32,5 @@ C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarCore.dll
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarCore.pdb
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.csproj.CopyComplete
+C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarObjects.dll
+C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarObjects.pdb

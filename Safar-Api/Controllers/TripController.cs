@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using SafarCore.DbClasses;
 using SafarCore.TripClasses;
+using SafarObjects.TripClasses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,14 +31,14 @@ namespace SafarApi.Controllers
         [HttpGet("{id}")]
         public async Task<Trip> Get(string tripId)
         {
-            return await Trip.GetTripById(tripId);
+            return await TripFunc.GetTripById(tripId);
         }
 
         // POST api/<controller>
         [HttpPost]
-        public async void Post([FromBody]TripTrans value)
+        public void Post([FromBody]Trip value)
         {
-            await Trip.AddUpdateTrip(value);
+            TripFunc.AddUpdateTrip(value);
         }
 
         // PUT api/<controller>/5

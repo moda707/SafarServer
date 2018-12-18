@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SafarCore;
-using SafarCore.ChatsClasses;
+using SafarCore.ChatClasses;
 using SafarCore.GenFunctions;
+using SafarObjects.ChatsClasses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,39 +35,42 @@ namespace SafarApi.Controllers
         [HttpGet("{tripId}/{startIndex}/{count}")]
         public async Task<List<ChatMessage>> Get(string tripId, int startIndex, int count)
         {
-            return await ChatMessage.GetChatMessages(tripId, startIndex, count);
+            var k = await ChatMessageFunc.GetChatMessages(tripId, startIndex, count);
+            return k;
         }
 
-        // POST api/<controller>
+        // POST api/<controller>W
         [HttpPost]
-        public async Task Post([FromBody]ChatMessageTrans value)
+        public void Post([FromBody]ChatMessage value)
         {
-            var t = await ChatMessage.AddUpdateMessage(value);
+            value.MessageId = Guid.NewGuid().ToString();
+            value.MessageDate = DateTime.Now;
+            var t = ChatMessageFunc.AddUpdateMessage(value);
         }
 
-        [HttpPost]
-        public async Task Post([FromBody]ChatMessageTrans value, IFormFile file)
-        {
-            //Add message
-            var t = await ChatMessage.AddUpdateMessage(value);
-            if (t.Result == ResultEnum.Successfull)
-            {
-                //Add Image
-                var uploads = Path.Combine(_environment.WebRootPath, "TripsContent/" + value.TripId + "/Images/Original");
-                var compressedimg = Path.Combine(_environment.WebRootPath, "TripsContent/" + value.TripId + "/Images/Compressed");
+        //[HttpPost]
+        //public void Post([FromBody]ChatMessage value, IFormFile file)
+        //{
+        //    //Add message
+        //    var t = ChatMessageFunc.AddUpdateMessage(value);
+        //    if (t.Result == ResultEnum.Successfull)
+        //    {
+        //        //Add Image
+        //        var uploads = Path.Combine(_environment.WebRootPath, "TripsContent/" + value.TripId + "/Images/Original");
+        //        var compressedimg = Path.Combine(_environment.WebRootPath, "TripsContent/" + value.TripId + "/Images/Compressed");
 
-                if (file.Length > 0)
-                {
-                    var filename = value.MessageId + "." + file.FileName.Split('.').LastOrDefault();
-                    using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
+        //        if (file.Length > 0)
+        //        {
+        //            var filename = value.MessageId + "." + file.FileName.Split('.').LastOrDefault();
+        //            using (var fileStream = new FileStream(Path.Combine(uploads, filename), FileMode.Create))
+        //            {
+        //                file.CopyToAsync(fileStream);
 
-                        ImageProcessing.CompressImage(value.MessageId, uploads, compressedimg);
-                    }
-                }
-            }
-        }
+        //                ImageProcessing.CompressImage(value.MessageId, uploads, compressedimg);
+        //            }
+        //        }
+        //    }
+        //}
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]

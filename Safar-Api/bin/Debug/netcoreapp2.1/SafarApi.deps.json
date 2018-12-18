@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "277db5147d288ea28aba2ad3ded521a8061de265"
+    "signature": "f78e802816940e4d507eebd9beed2320350ab34a"
   },
   "compilationOptions": {
     "defines": [
@@ -27,7 +27,8 @@
           "CoreCompat.System.Drawing": "1.0.0-beta006",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.NETCore.App": "2.1.0",
-          "SafarCore": "1.0.1",
+          "SafarCore": "1.0.0",
+          "SafarObjects": "1.0.3",
           "System.Drawing.Common": "4.5.1",
           "runtime.linux-x64.CoreCompat.System.Drawing": "1.0.0-beta009",
           "runtime.osx.10.10-x64.CoreCompat.System.Drawing": "5.4.0-r8"
@@ -44,7 +45,7 @@
           "Microsoft.Win32.Primitives": "4.3.0",
           "System.Collections.NonGeneric": "4.3.0",
           "System.Collections.Specialized": "4.3.0",
-          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.1.0",
           "System.Drawing.Primitives": "4.0.0",
           "System.IO.FileSystem": "4.3.0",
           "System.Reflection.TypeExtensions": "4.3.0",
@@ -309,8 +310,8 @@
           "MongoDB.Bson": "2.7.2",
           "MongoDB.Driver.Core": "2.7.2",
           "NETStandard.Library": "2.0.3",
-          "System.ComponentModel.TypeConverter": "4.3.0",
-          "System.Linq.Queryable": "4.3.0"
+          "System.ComponentModel.TypeConverter": "4.1.0",
+          "System.Linq.Queryable": "4.0.1"
         },
         "runtime": {
           "lib/netstandard1.5/MongoDB.Driver.dll": {
@@ -515,25 +516,25 @@
           "lib/netstandard2.0/runtime.osx.10.10-x64.CoreCompat.System.Drawing.dll": {}
         }
       },
-      "System.ComponentModel/4.3.0": {
+      "System.ComponentModel/4.0.1": {
         "dependencies": {
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ComponentModel.Primitives/4.3.0": {
+      "System.ComponentModel.Primitives/4.1.0": {
         "dependencies": {
-          "System.ComponentModel": "4.3.0",
+          "System.ComponentModel": "4.0.1",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ComponentModel.TypeConverter/4.3.0": {
+      "System.ComponentModel.TypeConverter/4.1.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
           "System.Collections.NonGeneric": "4.3.0",
           "System.Collections.Specialized": "4.3.0",
-          "System.ComponentModel": "4.3.0",
-          "System.ComponentModel.Primitives": "4.3.0",
+          "System.ComponentModel": "4.0.1",
+          "System.ComponentModel.Primitives": "4.1.0",
           "System.Globalization": "4.3.0",
           "System.Linq": "4.3.0",
           "System.Reflection": "4.3.0",
@@ -651,18 +652,6 @@
         "dependencies": {
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0"
-        }
-      },
-      "System.Linq.Queryable/4.3.0": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Linq": "4.3.0",
-          "System.Linq.Expressions": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Extensions": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0"
         }
       },
       "System.Net.NameResolution/4.3.0": {
@@ -832,20 +821,24 @@
           "System.Runtime.Handles": "4.3.0"
         }
       },
-      "SafarCore/1.0.1": {
+      "SafarCore/1.0.0": {
         "dependencies": {
-          "MongoDB.Bson": "2.7.2",
           "MongoDB.Driver": "2.7.2",
-          "MongoDB.Driver.Core": "2.7.2",
-          "NETStandard.Library": "2.0.3",
-          "System.ComponentModel.TypeConverter": "4.3.0",
-          "System.Linq.Queryable": "4.3.0"
+          "SafarObjects": "1.0.3"
         },
         "runtime": {
           "SafarCore.dll": {}
         },
         "compile": {
           "SafarCore.dll": {}
+        }
+      },
+      "SafarObjects/1.0.3": {
+        "runtime": {
+          "SafarObjects.dll": {}
+        },
+        "compile": {
+          "SafarObjects.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -2764,7 +2757,7 @@
           "System.Diagnostics.Debug": "4.3.0",
           "System.Linq": "4.3.0",
           "System.Linq.Expressions": "4.3.0",
-          "System.Linq.Queryable": "4.3.0",
+          "System.Linq.Queryable": "4.0.1",
           "System.ObjectModel": "4.3.0",
           "System.Reflection": "4.3.0",
           "System.Reflection.Extensions": "4.3.0",
@@ -3159,6 +3152,19 @@
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
           "System.Threading": "4.3.0"
+        },
+        "compileOnly": true
+      },
+      "System.Linq.Queryable/4.0.1": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0"
         },
         "compileOnly": true
       },
@@ -3912,26 +3918,26 @@
       "path": "runtime.osx.10.10-x64.corecompat.system.drawing/5.4.0-r8",
       "hashPath": "runtime.osx.10.10-x64.corecompat.system.drawing.5.4.0-r8.nupkg.sha512"
     },
-    "System.ComponentModel/4.3.0": {
+    "System.ComponentModel/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VyGn1jGRZVfxnh8EdvDCi71v3bMXrsu8aYJOwoV7SNDLVhiEqwP86pPMyRGsDsxhXAm2b3o9OIqeETfN5qfezw==",
-      "path": "system.componentmodel/4.3.0",
-      "hashPath": "system.componentmodel.4.3.0.nupkg.sha512"
+      "sha512": "sha512-oBZFnm7seFiVfugsIyOvQCWobNZs7FzqDV/B7tx20Ep/l3UUFCPDkdTnCNaJZTU27zjeODmy2C/cP60u3D4c9w==",
+      "path": "system.componentmodel/4.0.1",
+      "hashPath": "system.componentmodel.4.0.1.nupkg.sha512"
     },
-    "System.ComponentModel.Primitives/4.3.0": {
+    "System.ComponentModel.Primitives/4.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-j8GUkCpM8V4d4vhLIIoBLGey2Z5bCkMVNjEZseyAlm4n5arcsJOeI3zkUP+zvZgzsbLTYh4lYeP/ZD/gdIAPrw==",
-      "path": "system.componentmodel.primitives/4.3.0",
-      "hashPath": "system.componentmodel.primitives.4.3.0.nupkg.sha512"
+      "sha512": "sha512-sc/7eVCdxPrp3ljpgTKVaQGUXiW05phNWvtv/m2kocXqrUQvTVWKou1Edas2aDjTThLPZOxPYIGNb/HN0QjURg==",
+      "path": "system.componentmodel.primitives/4.1.0",
+      "hashPath": "system.componentmodel.primitives.4.1.0.nupkg.sha512"
     },
-    "System.ComponentModel.TypeConverter/4.3.0": {
+    "System.ComponentModel.TypeConverter/4.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-16pQ6P+EdhcXzPiEK4kbA953Fu0MNG2ovxTZU81/qsCd1zPRsKc3uif5NgvllCY598k6bI0KUyKW8fanlfaDQg==",
-      "path": "system.componentmodel.typeconverter/4.3.0",
-      "hashPath": "system.componentmodel.typeconverter.4.3.0.nupkg.sha512"
+      "sha512": "sha512-MnDAlaeJZy9pdB5ZdOlwdxfpI+LJQ6e0hmH7d2+y2LkiD8DRJynyDYl4Xxf3fWFm7SbEwBZh4elcfzONQLOoQw==",
+      "path": "system.componentmodel.typeconverter/4.1.0",
+      "hashPath": "system.componentmodel.typeconverter.4.1.0.nupkg.sha512"
     },
     "System.Diagnostics.Process/4.1.0": {
       "type": "package",
@@ -3967,13 +3973,6 @@
       "sha512": "sha512-9lVRG1voBwzLGZkf1XFJrobdZDZ5ZHMU4FVTbXAbzehpN90yYgkUeo9GoEYdvkt/EXaaHZJAeuffXP4JBbY+Ig==",
       "path": "system.drawing.primitives/4.0.0",
       "hashPath": "system.drawing.primitives.4.0.0.nupkg.sha512"
-    },
-    "System.Linq.Queryable/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-XeuhzDnMp4nqUkeW4c5ILsKQk4+15RVaHm8LQdKWiGqIAgC12y2vuJUkkNhqjqi3K6LNmV9tzEfAZrarwWMsKA==",
-      "path": "system.linq.queryable/4.3.0",
-      "hashPath": "system.linq.queryable.4.3.0.nupkg.sha512"
     },
     "System.Net.NameResolution/4.3.0": {
       "type": "package",
@@ -4024,7 +4023,12 @@
       "path": "system.threading.threadpool/4.3.0",
       "hashPath": "system.threading.threadpool.4.3.0.nupkg.sha512"
     },
-    "SafarCore/1.0.1": {
+    "SafarCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SafarObjects/1.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -5512,6 +5516,13 @@
       "sha512": "sha512-jlZ1AKYgns90hbPp83uM5SQCWRrqLZWHS3q33zeMlAdKfQ4+KT4VVbWmgWqh6nVw7pB/7dXiR8TjHUPcXwIEKA==",
       "path": "system.linq.expressions/4.3.0",
       "hashPath": "system.linq.expressions.4.3.0.nupkg.sha512"
+    },
+    "System.Linq.Queryable/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
+      "path": "system.linq.queryable/4.0.1",
+      "hashPath": "system.linq.queryable.4.0.1.nupkg.sha512"
     },
     "System.Memory/4.5.1": {
       "type": "package",

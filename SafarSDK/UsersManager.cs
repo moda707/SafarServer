@@ -11,14 +11,14 @@ namespace SafarSDK
     public class UsersManager
     {
         static HttpClient client = new HttpClient();
-        public static async Task<FuncResult> AddUser(UsersTrans userT)
+        public static async Task<FuncResult> AddUser(Users user)
         {
             client.BaseAddress = new Uri(ServerConfig.getUrl());
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var json = JsonConvert.SerializeObject(userT);
+            var json = JsonConvert.SerializeObject(user);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("api/User", httpContent);
@@ -47,8 +47,8 @@ namespace SafarSDK
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
             var response = await client.GetStringAsync($"api/User/{email}/{password}");
-            var userTrans = JsonConvert.DeserializeObject<UsersTrans>(response);
-            return userTrans.GetUsersObject();
+            var userTrans = JsonConvert.DeserializeObject<Users>(response);
+            return userTrans;
         }
     }
 }

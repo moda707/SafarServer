@@ -35,7 +35,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SafarObjects/1.0.1": {
+      "SafarObjects/1.0.3": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/SafarObjects.dll": {}
@@ -229,14 +229,14 @@
         "newtonsoft.json.nuspec"
       ]
     },
-    "SafarObjects/1.0.1": {
-      "sha512": "gCmPh4IIk+zlpBmbvqkRXqObl6UWQico+6nmDjt+6Wz04HCTE8OoDdy4+eHGS+BGJksqo35WnvJmKghb5rvJyg==",
+    "SafarObjects/1.0.3": {
+      "sha512": "U3YbXPzxWBirJ1DUSmQtt4ZxFebTJeJbCRS1FKvrsOFgrUZq5EC2KkcIaUR97CKXFU60x/BFaQYJlPWp4EdNvg==",
       "type": "package",
-      "path": "safarobjects/1.0.1",
+      "path": "safarobjects/1.0.3",
       "files": [
         ".nupkg.metadata",
         "lib/netstandard2.0/SafarObjects.dll",
-        "safarobjects.1.0.1.nupkg.sha512",
+        "safarobjects.1.0.3.nupkg.sha512",
         "safarobjects.nuspec"
       ]
     }
@@ -245,7 +245,7 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Newtonsoft.Json >= 12.0.1",
-      "SafarObjects >= 1.0.1"
+      "SafarObjects >= 1.0.3"
     ]
   },
   "packageFolders": {
@@ -253,7 +253,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "restore": {
       "projectUniqueName": "C:\\Users\\mohda\\source\\repos\\SafarCore\\SafarSDK\\SafarSDK.csproj",
       "projectName": "SafarSDK",
@@ -302,7 +302,7 @@
           },
           "SafarObjects": {
             "target": "Package",
-            "version": "[1.0.1, )"
+            "version": "[1.0.3, )"
           }
         },
         "imports": [

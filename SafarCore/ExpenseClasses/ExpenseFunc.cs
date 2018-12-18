@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using SafarCore.DbClasses;
 using SafarObjects.ExpenseClasses;
 
@@ -9,9 +10,9 @@ namespace SafarCore.ExpenseClasses
 {
     public class ExpenseFunc:Expense
     {
-        public static Task<FuncResult> AddUpdateExpense(Expense expense)
+        public static FuncResult AddUpdateExpense(Expense expense)
         {
-            return DbConnection.FastAddorUpdate(expense, CollectionNames.Expenses);
+            return DbConnection.FastAddorUpdate(expense.ToBsonDocument(), CollectionNames.Expenses);
         }
         
         public static Task<FuncResult> DeleteExpense(string expenseId)

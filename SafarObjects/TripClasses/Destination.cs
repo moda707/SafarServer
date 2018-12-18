@@ -9,8 +9,6 @@ namespace SafarObjects.TripClasses
 {
     public class Destination
     {
-        [BsonId]
-        public ObjectId _id { get; set; }
         public string DestinationId { get; set; }
         public string Title { get; set; }
         public GeoPoint Location { get; set; }
@@ -21,6 +19,45 @@ namespace SafarObjects.TripClasses
         {
             
         }
-        
+
+        public DestinationInDb GetDestinationInDb()
+        {
+            return new DestinationInDb()
+            {
+                DestinationId = this.DestinationId,
+                Location = this.Location,
+                Title = this.Title,
+                StartDate = this.StartDate,
+                EndDate = this.EndDate
+            };
+        }
+    }
+
+    public class DestinationInDb
+    {
+        [BsonId]
+        public ObjectId _id { get; set; }
+        public string DestinationId { get; set; }
+        public string Title { get; set; }
+        public GeoPoint Location { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+        public DestinationInDb()
+        {
+
+        }
+
+        public Destination GetDestination()
+        {
+            return new Destination()
+            {
+                DestinationId = this.DestinationId,
+                Location = this.Location,
+                Title = this.Title,
+                StartDate = this.StartDate,
+                EndDate = this.EndDate
+            };
+        }
     }
 }

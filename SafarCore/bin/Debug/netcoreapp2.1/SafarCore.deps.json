@@ -9,7 +9,7 @@
       "SafarCore/1.0.0": {
         "dependencies": {
           "MongoDB.Driver": "2.7.2",
-          "SafarObjects": "1.0.0"
+          "SafarObjects": "1.0.3"
         },
         "runtime": {
           "SafarCore.dll": {}
@@ -910,7 +910,7 @@
           "System.Runtime.Handles": "4.3.0"
         }
       },
-      "SafarObjects/1.0.0": {
+      "SafarObjects/1.0.3": {
         "runtime": {
           "SafarObjects.dll": {}
         }
@@ -1420,7 +1420,7 @@
       "path": "system.threading.threadpool/4.3.0",
       "hashPath": "system.threading.threadpool.4.3.0.nupkg.sha512"
     },
-    "SafarObjects/1.0.0": {
+    "SafarObjects/1.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

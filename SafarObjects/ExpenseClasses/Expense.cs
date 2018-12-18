@@ -8,8 +8,6 @@ namespace SafarObjects.ExpenseClasses
 {
     public class Expense
     {
-        [BsonId]
-        public ObjectId _id { get; set; }
         public string ExpenseId { get; set; }
         public string TripId { get; set; }
         public string Title { get; set; }
@@ -20,7 +18,55 @@ namespace SafarObjects.ExpenseClasses
         public DateTime PayDateTime { get; set; }
         public ExpenseItemStatus Status { get; set; }
 
+        public Expense()
+        {
+            
+        }
 
+        public ExpenseInDb GetExpenseInDb()
+        {
+            return new ExpenseInDb()
+            {
+                ExpenseId = this.ExpenseId,
+                TripId = this.TripId,
+                Title = this.Title,
+                Description = this.Description,
+                Amount = this.Amount,
+                Payer = this.Payer,
+                PaidFor = this.PaidFor,
+                PayDateTime = this.PayDateTime,
+                Status = this.Status
+            };
+        }
+    }
+
+    public class ExpenseInDb:Expense
+    {
+        [BsonId]
+        public ObjectId _id { get; set; }
+        
+
+        public ExpenseInDb()
+
+        {
+
+        }
+
+        public Expense GetExpense()
+        {
+            return new Expense()
+            {
+                ExpenseId = this.ExpenseId,
+                TripId = this.TripId,
+                Title = this.Title,
+                Description = this.Description,
+                Amount = this.Amount,
+                Payer = this.Payer,
+                PaidFor = this.PaidFor,
+                PayDateTime = this.PayDateTime,
+                Status = this.Status
+            };
+        }
     }
 
     public enum ExpenseItemStatus   

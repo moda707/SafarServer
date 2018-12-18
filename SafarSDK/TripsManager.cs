@@ -24,7 +24,7 @@ namespace SafarSDK
             return JsonConvert.DeserializeObject<Trip>(response);
         }
 
-        public static async Task<FuncResult> AddTrip(TripTrans trip)
+        public static async Task<FuncResult> AddTrip(Trip trip)
         {
             client.BaseAddress = new Uri(ServerConfig.getUrl());
             client.DefaultRequestHeaders.Accept.Clear();
