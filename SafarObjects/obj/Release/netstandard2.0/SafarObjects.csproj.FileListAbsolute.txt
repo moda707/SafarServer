@@ -10,3 +10,11 @@ C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\Sa
 C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.csproj.CopyComplete
 C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.dll
 C:\Users\mohda\source\repos\SafarCore\SafarObjects\obj\Release\netstandard2.0\SafarObjects.pdb
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\System.ComponentModel.DataAnnotations.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\System.Configuration.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\System.Security.dll
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\Microsoft.Extensions.Identity.Stores.xml
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\System.ComponentModel.DataAnnotations.xml
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\System.Configuration.xml
+C:\Users\mohda\source\repos\SafarCore\SafarObjects\bin\Release\netstandard2.0\System.Security.xml

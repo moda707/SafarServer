@@ -9,11 +9,27 @@ using SafarObjects.TripClasses;
 
 namespace SafarCore.TripClasses
 {
-    public class TripFunc : Trip
+    public interface ITripRepository
     {
+        Task<FuncResult> AddUpdateTrip(Trip trip);
+        Task<FuncResult> DeleteTrip(string tripId);
+        Task<Trip> GetTripById(string tripId);
+        Task<List<Trip>> GetTripsByUserId(string userId);
+
+    }
+    public class TripRepository : ITripRepository
+    {
+
+        readonly DbConnection _context;
+
+        public TripRepository(DbConnection context)
+        {
+            _context = context;
+        }
+
         #region Converter
 
-        public static async Task<Trip> ConvertTripInDbtoTrip(TripInDb tripInDb)
+        public async Task<Trip> ConvertTripInDbtoTrip(TripInDb tripInDb)
         {
             return new Trip()
             {
@@ -30,7 +46,7 @@ namespace SafarCore.TripClasses
             };
         }
 
-        public static TripInDb ConvertTriptoTripInDb(Trip tripTrans)
+        public TripInDb ConvertTriptoTripInDb(Trip tripTrans)
         {
             return new TripInDb()
             {
@@ -50,60 +66,53 @@ namespace SafarCore.TripClasses
 
         #region Add Update Delete Functions
 
-        public static FuncResult AddUpdateTrip(Trip trip)
+        public Task<FuncResult> AddUpdateTrip(Trip trip)
         {
             try
             {
                 var tripInDb = ConvertTriptoTripInDb(trip);
-                return DbConnection.FastAddorUpdate(tripInDb.ToBsonDocument(), CollectionNames.Trip, new List<string>() {"TripId"});
+                return _context.AddorUpdateAsync(tripInDb.ToBsonDocument(), CollectionNames.Trip, new List<string>() { "TripId" });
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return new Task<FuncResult>(() => new FuncResult(ResultEnum.Unsuccessfull, e.Message));
             }
         }
 
-        public static Task<FuncResult> DeleteTrip(string tripId)
+        public Task<FuncResult> DeleteTrip(string tripId)
         {
             var filter = new List<FieldFilter>()
             {
                 new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
-            return DbConnection.DeleteMany(filter, CollectionNames.Trip);
+            return _context.DeleteMany(filter, CollectionNames.Trip);
         }
 
         #endregion
 
         #region Get Trips
 
-        public static async Task<Trip> GetTripById(string tripId)
+        public async Task<Trip> GetTripById(string tripId)
         {
-            var otripId = ObjectId.Parse(tripId);
-            var dbConnection = new DbConnection();
-
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("TripId", otripId, FieldType.ObjectId, CompareType.Equal)
+                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
-            var l = await dbConnection.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
+            var l = await _context.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
             var trip = await ConvertTripInDbtoTrip(l[0]);
             return trip;
         }
 
-        public static async Task<List<Trip>> GetTripsByUserId(string userId)
+        public async Task<List<Trip>> GetTripsByUserId(string userId)
         {
             var tripIdsList = FellowFunc.GetAllTripIdsByUser(userId);
 
             var filter = new List<FieldFilter>()
             {
-                new FieldFilter("TripId", tripIdsList, FieldType.ListObjectId, CompareType.IN)
+                new FieldFilter("TripId", tripIdsList, FieldType.ListString, CompareType.IN)
             };
-
-            var dbConnection = new DbConnection();
             
-
-            var tripsInDbList = await dbConnection.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
+            var tripsInDbList = await _context.GetFilteredListAsync<TripInDb>(CollectionNames.Trip, filter);
             var tripsList = new List<Trip>();
             foreach (var tripInDb in tripsInDbList)
             {

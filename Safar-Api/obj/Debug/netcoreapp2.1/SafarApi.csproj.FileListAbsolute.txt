@@ -16,8 +16,6 @@ C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safa
 C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.dll
 C:\Users\mohda\Google Drive\My Projects\Professional Works\Safar\Safar-Core\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.pdb
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.csproj.CoreCompileInputs.cache
-C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.RazorAssemblyInfo.cache
-C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.RazorAssemblyInfo.cs
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.AssemblyInfoInputs.cache
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.AssemblyInfo.cs
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.dll
@@ -27,10 +25,12 @@ C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarApi
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarApi.runtimeconfig.dev.json
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarApi.dll
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarApi.pdb
-C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.RazorTargetAssemblyInfo.cache
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.csprojAssemblyReference.cache
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarCore.dll
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarCore.pdb
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.csproj.CopyComplete
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarObjects.dll
 C:\Users\mohda\source\repos\SafarCore\Safar-Api\bin\Debug\netcoreapp2.1\SafarObjects.pdb
+C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.RazorAssemblyInfo.cache
+C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.RazorAssemblyInfo.cs
+C:\Users\mohda\source\repos\SafarCore\Safar-Api\obj\Debug\netcoreapp2.1\SafarApi.RazorTargetAssemblyInfo.cache

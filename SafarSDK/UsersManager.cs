@@ -48,6 +48,7 @@ namespace SafarSDK
 
             var response = await client.GetStringAsync($"api/User/{email}/{password}");
             var userTrans = JsonConvert.DeserializeObject<Users>(response);
+
             return userTrans;
         }
     }

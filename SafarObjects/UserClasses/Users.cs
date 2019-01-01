@@ -23,7 +23,9 @@ namespace SafarObjects.UserClasses
                 Email = this.Email,
                 Password = this.Password,
                 LastActivity = this.LastActivity,
-                ProfileImage = this.ProfileImage
+                ProfileImage = this.ProfileImage,
+                ConnectionId = this.ConnectionId,
+                token = this.token
             };
         }
     }
@@ -36,6 +38,8 @@ namespace SafarObjects.UserClasses
         public string DisplayName { get; set; }
         public string ProfileImage { get; set; }
         public DateTime LastActivity { get; set; }
+        public string ConnectionId { get; set; }
+        public string token { get; set; }
 
         public Users()
         {

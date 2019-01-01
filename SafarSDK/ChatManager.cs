@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SafarObjects.ChatsClasses;
+using SafarSDK.Models;
 
 namespace SafarSDK
 {
@@ -13,7 +14,7 @@ namespace SafarSDK
     {
         
 
-        public static async Task<FuncResult> SendMessage(ChatMessage message)
+        public static async Task<FuncResult> SendMessage(ChatMessageModel message)
         {
             try
             {
@@ -40,7 +41,7 @@ namespace SafarSDK
             }
         }
 
-        public static async Task<List<ChatMessage>> GetMessages(string tripId, int startIndex, int count)
+        public static async Task<List<ChatMessageModel>> GetMessages(string tripId, int startIndex, int count)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(ServerConfig.getUrl());
@@ -50,7 +51,7 @@ namespace SafarSDK
 
             var response = await client.GetStringAsync($"api/chat/{tripId}/{startIndex}/{count}");
             client.Dispose();
-            return JsonConvert.DeserializeObject<List<ChatMessage>>(response);
+            return JsonConvert.DeserializeObject<List<ChatMessageModel>>(response);
         }
     }
 }

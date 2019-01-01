@@ -6,13 +6,15 @@ namespace SafarCore.DbClasses
 {
     public class DbConfig
     {
-        private const string UserName = "moda_admin";
-        private const string Password = "177282523";
-        private const string ConnectionName = "";
-        private const string ConnectionString = "mongodb://127.0.0.1:27017";
+        //private const string UserName = "moda_admin";
+        //private const string Password = "177282523";
+        //private const string ConnectionName = "";
+        public string ConnectionString = "mongodb://127.0.0.1:27017";
+        public string Database;
+
         public static string GetConnectionString()
         {
-            return ConnectionString;
+            return "mongodb://127.0.0.1:27017";
         }
     }
 }

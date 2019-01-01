@@ -17,20 +17,21 @@ namespace SafarCore.TripClasses
 
         public static FuncResult AddUpdateDestination(Destination destination)
         {
-            return DbConnection.FastAddorUpdate(destination.ToBsonDocument(), CollectionNames.Destinations,
-                new List<string>() {"DestinationId"});
+            //return DbConnection.FastAddorUpdate(destination.ToBsonDocument(), CollectionNames.Destinations,
+            //    new List<string>() {"DestinationId"});
+            return new FuncResult(ResultEnum.Unsuccessfull);
         }
 
-        public static Task<FuncResult> DeleteDestination(string destinationId)
-        {
-            var filter = new List<FieldFilter>()
-            {
-                new FieldFilter("DestinationId", destinationId, FieldType.String, CompareType.Equal)
-            };
+        //public static Task<FuncResult> DeleteDestination(string destinationId)
+        //{
+        //    var filter = new List<FieldFilter>()
+        //    {
+        //        new FieldFilter("DestinationId", destinationId, FieldType.String, CompareType.Equal)
+        //    };
 
-            var res = DbConnection.DeleteMany(filter, CollectionNames.Destinations);
-            return res;
-        }
+        //    var res = DbConnection.DeleteMany(filter, CollectionNames.Destinations);
+        //    return res;
+        //}
 
         #endregion
 
@@ -38,16 +39,17 @@ namespace SafarCore.TripClasses
 
         public static Task<List<Destination>> GetDestinationsByTripId(string tripId)
         {
-            var dbConnection = new DbConnection();
+            //var dbConnection = new DbConnection();
             
-            var filter = new List<FieldFilter>()
-            {
-                new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
-            };
-            var r = dbConnection.GetFilteredListAsync<Destination>(
-                CollectionNames.Destinations, filter);
+            //var filter = new List<FieldFilter>()
+            //{
+            //    new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
+            //};
+            //var r = dbConnection.GetFilteredListAsync<Destination>(
+            //    CollectionNames.Destinations, filter);
 
-            return r;
+            //return r;
+            return new Task<List<Destination>>(() => new List<Destination>(2));
         }
 
         public static Task<List<GeoPoint>> GetRouteByTrip(string tripId)

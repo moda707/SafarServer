@@ -8,27 +8,39 @@ using SafarObjects.ChatsClasses;
 
 namespace SafarCore.ChatClasses
 {
-    public class ChatMessageFunc : ChatMessage
+    public interface IChatMessageRepository
     {
+        Task<FuncResult> AddUpdateMessage(ChatMessage chatMessage);
+        Task<FuncResult> DeleteMessage(string messageId);
+        Task<List<ChatMessage>> GetChatMessages(string tripId, int startIndex = 0, int count = 20);
+
+    }
+    public class ChatMessageRepository:IChatMessageRepository
+    {
+        readonly IDbConnection _context;
+
+        public ChatMessageRepository(IDbConnection context)
+        {
+            _context = context;
+        }
+
         #region ADD UPDATE DELETE Functions
 
-        public static FuncResult AddUpdateMessage(ChatMessage chatMessage)
+        public Task<FuncResult> AddUpdateMessage(ChatMessage chatMessage)
         {
             var chatMessageInDb = chatMessage.GetChatMessageInDb().ToBsonDocument();
 
             //add it to db
-
-            var addres = DbConnection.FastAddorUpdate(chatMessageInDb, CollectionNames.Chats);
+            var addres = _context.AddorUpdateAsync(chatMessageInDb, CollectionNames.Chats);
 
             return addres;
         }
 
-        public static Task<FuncResult> DeleteMessage(string messageId)
+        public Task<FuncResult> DeleteMessage(string messageId)
         {
             var omessageId = ObjectId.Parse(messageId);
-            var dbConnection = new DbConnection();
             
-            var t = dbConnection.DeleteManyAsync(CollectionNames.Chats,
+            var t = _context.DeleteManyAsync(CollectionNames.Chats,
                 new List<FieldFilter>()
                 {
                     new FieldFilter("MessageId", omessageId, FieldType.ObjectId, CompareType.Equal)
@@ -39,18 +51,15 @@ namespace SafarCore.ChatClasses
         #endregion
 
         #region Get Messages
-        public static async Task<List<ChatMessage>> GetChatMessages(string tripId, int startIndex = 0, int count = 20)
+        public async Task<List<ChatMessage>> GetChatMessages(string tripId, int startIndex = 0, int count = 20)
         {
-            //var otripId = ObjectId.Parse(tripId);
-            var dbConnection = new DbConnection();
-
             var filter = new List<FieldFilter>()
             {
                 new FieldFilter("TripId", tripId, FieldType.String, CompareType.Equal)
             };
 
             var sort = new SortFilter("MessageDate", SortType.Descending);
-            var chatList = await dbConnection.GetFilteredListAsync<ChatMessageInDb>(CollectionNames.Chats, filter, sort, count);
+            var chatList = await _context.GetFilteredListAsync<ChatMessageInDb>(CollectionNames.Chats, filter, sort, count);
             
             return chatList.Select(x=> x.GetChatMessage()).ToList();
         }
@@ -65,13 +74,6 @@ namespace SafarCore.ChatClasses
             return new Task<List<string>>(() => new List<string>());
         }
         #endregion
-
-    }
-
-
-    public class ChatMessageInDbFunc : ChatMessageInDb
-    {
-        
     }
     
     public class ImageInfoFunc : ImageInfo

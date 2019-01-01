@@ -34,21 +34,23 @@ namespace SafarCore.GenFunctions
 
         public FuncResult AddLog()
         {
-            var dbConnection = new DbConnection();
+            //var dbConnection = new DbConnection();
             
 
-            return dbConnection.AddorUpdate(this.ToBsonDocument(),
-                dbConnection.GetMongoCollection(CollectionNames.Logs));
+            //return dbConnection.AddorUpdate(this.ToBsonDocument(),
+            //    dbConnection.GetMongoCollection(CollectionNames.Logs));
+            return new FuncResult(ResultEnum.Unsuccessfull,"");
         }
 
         public static List<Logger> GetLogs(int count)
         {
-            var dbConnection = new DbConnection();
+            //var dbConnection = new DbConnection();
             
 
-            var col = dbConnection.GetFilteredList<Logger>(CollectionNames.Logs, null)
-                .OrderByDescending(x => x.ErrorTime).Take(count).ToList();
-            return col;
+            //var col = dbConnection.GetFilteredList<Logger>(CollectionNames.Logs, null)
+            //    .OrderByDescending(x => x.ErrorTime).Take(count).ToList();
+            //return col;
+            return null;
         }
     }
 }

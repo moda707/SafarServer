@@ -35,7 +35,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "SafarObjects/1.0.3": {
+      "SafarObjects/1.0.6": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/SafarObjects.dll": {}
@@ -229,14 +229,14 @@
         "newtonsoft.json.nuspec"
       ]
     },
-    "SafarObjects/1.0.3": {
-      "sha512": "U3YbXPzxWBirJ1DUSmQtt4ZxFebTJeJbCRS1FKvrsOFgrUZq5EC2KkcIaUR97CKXFU60x/BFaQYJlPWp4EdNvg==",
+    "SafarObjects/1.0.6": {
+      "sha512": "BuvrO7thvH3jBlhpo6MKu08vnVVhg5PI8aUyDS6R6PLWKrV70hmz9nLyTW+1QF4+vq6tM9XWQ7H4G8hI0Wekzw==",
       "type": "package",
-      "path": "safarobjects/1.0.3",
+      "path": "safarobjects/1.0.6",
       "files": [
         ".nupkg.metadata",
         "lib/netstandard2.0/SafarObjects.dll",
-        "safarobjects.1.0.3.nupkg.sha512",
+        "safarobjects.1.0.6.nupkg.sha512",
         "safarobjects.nuspec"
       ]
     }
@@ -245,7 +245,7 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Newtonsoft.Json >= 12.0.1",
-      "SafarObjects >= 1.0.3"
+      "SafarObjects >= 1.0.6"
     ]
   },
   "packageFolders": {
@@ -302,7 +302,7 @@
           },
           "SafarObjects": {
             "target": "Package",
-            "version": "[1.0.3, )"
+            "version": "[1.0.6, )"
           }
         },
         "imports": [
